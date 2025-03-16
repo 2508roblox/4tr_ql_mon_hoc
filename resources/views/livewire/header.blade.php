@@ -9,13 +9,13 @@
                     <div class="header-left">
                         <div class="logo logo-dark">
                             <a href="{{ route('home') }}">
-                                <img src="/assets/images/logo/logo-black.png" alt="Logo Giáo Dục">
+                                <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Logo Giáo Dục">
                             </a>
                         </div>
         
                         <div class="logo d-none logo-light">
                             <a href="{{ route('home') }}">
-                                <img src="/assets/images/dark/logo/logo-light.png" alt="Logo Giáo Dục">
+                                <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Logo Giáo Dục">
                             </a>
                         </div>
                     </div>
@@ -89,102 +89,15 @@
                         </div>
         
                         <!-- Start Course Card  -->
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                            <div class="rbt-card variation-01 rbt-hover">
-                                <div class="rbt-card-img">
-                                    <a href="{{ route('courses.show', ['course' => 1]) }}">
-                                        <img src="/assets/images/course/course-online-01.jpg" alt="Hình ảnh khoá học">
-                                    </a>
-                                </div>
-                                <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title">
-                                        <a href="{{ route('courses.show', ['course' => 1]) }}">React Js</a>
-                                    </h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count">(15 Đánh giá)</span>
-                                    </div>
-                                    <div class="rbt-card-bottom">
-                                        <div class="rbt-price">
-                                            <span class="current-price">$15</span>
-                                            <span class="off-price">$25</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                         <!-- End Course Card  -->
         
                         <!-- Start Course Card  -->
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                            <div class="rbt-card variation-01 rbt-hover">
-                                <div class="rbt-card-img">
-                                    <a href="{{ route('courses.show', ['course' => 2]) }}">
-                                        <img src="/assets/images/course/course-online-02.jpg" alt="Hình ảnh khoá học">
-                                    </a>
-                                </div>
-                                <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title">
-                                        <a href="{{ route('courses.show', ['course' => 2]) }}">Lập trình Java</a>
-                                    </h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count">(15 Đánh giá)</span>
-                                    </div>
-                                    <div class="rbt-card-bottom">
-                                        <div class="rbt-price">
-                                            <span class="current-price">$10</span>
-                                            <span class="off-price">$40</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                      
                         <!-- End Course Card  -->
         
                         <!-- Start Course Card  -->
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                            <div class="rbt-card variation-01 rbt-hover">
-                                <div class="rbt-card-img">
-                                    <a href="{{ route('courses.show', ['course' => 3]) }}">
-                                        <img src="/assets/images/course/course-online-03.jpg" alt="Hình ảnh khoá học">
-                                    </a>
-                                </div>
-                                <div class="rbt-card-body">
-                                    <h5 class="rbt-card-title">
-                                        <a href="{{ route('courses.show', ['course' => 3]) }}">Thiết kế Web</a>
-                                    </h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count">(15 Đánh giá)</span>
-                                    </div>
-                                    <div class="rbt-card-bottom">
-                                        <div class="rbt-price">
-                                            <span class="current-price">$10</span>
-                                            <span class="off-price">$20</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <!-- End Course Card  -->
                     </div>
                 </div>
@@ -203,13 +116,13 @@
                     <div class="logo">
                         <div class="logo logo-dark">
                             <a href="index.html">
-                                <img src="/assets/images/logo/logo.png" alt="Logo Quản Lý Môn Học">
+                                <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Logo Quản Lý Môn Học">
                             </a>
                         </div>
             
                         <div class="logo d-none logo-light">
                             <a href="index.html">
-                                <img src="/assets/images/dark/logo/logo-light.png" alt="Logo Quản Lý Môn Học">
+                                <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Logo Quản Lý Môn Học">
                             </a>
                         </div>
                     </div>

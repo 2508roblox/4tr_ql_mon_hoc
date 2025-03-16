@@ -12,6 +12,8 @@ use App\Livewire\Dashboard\Attendance;
 use App\Livewire\Courses\Index as CourseIndex;
 use App\Livewire\Courses\Show as CourseShow;
 use App\Livewire\Lessons\Show as LessonShow;
+use App\Livewire\VerifyAccount;
+
 Route::get('/', Home::class)->name('home');
 Route::get('/auth', AuthForm::class)->name('auth');
 Route::middleware(['guest'])->group(function () {
@@ -23,5 +25,6 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/dashboard/attendance', Attendance::class)->name('dashboard.attendance');
 });
 Route::get('/courses', CourseIndex::class)->name('courses.index');
-Route::get('/courses/{course}', CourseShow::class)->name('courses.show');
+Route::get('/courses/{slug}', CourseShow::class)->name('courses.show');
 Route::get('/lessons/{lesson}', LessonShow::class)->name('lessons.show');
+Route::get('/verify',  VerifyAccount::class)->name('verify');

@@ -42,6 +42,10 @@
   font-variation-settings:
     "wdth" 100;
 }
+.rbt-header .logo a img {
+    max-height: 75px !important;
+    object-fit: cover;
+}
         </style>
         @livewireStyles
     </head>

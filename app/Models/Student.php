@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable; // ✅ Sử dụng Authenticatable
 
-class Student extends Model
+class Student extends Authenticatable
 {
     use HasFactory;
-
-    protected $fillable = ['student_id', 'full_name', 'email', 'password'];
+    use Notifiable;
+    protected $fillable = ['student_id', 'full_name', 'email', 'password', 'email_verified_at'
+, 'verification_code'];
 
     protected $hidden = ['password'];
 
@@ -37,4 +40,9 @@ class Student extends Model
     {
         return $this->hasMany(Feedback::class);
     }
+ 
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }

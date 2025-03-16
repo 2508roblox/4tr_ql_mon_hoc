@@ -138,65 +138,64 @@
                     <div class="col-lg-8">
                         <div class="content text-start">
                             <ul class="page-list">
-                                <li class="rbt-breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="rbt-breadcrumb-item"><a href="{{ route('home') }}">Trang chủ</a></li>
                                 <li>
                                     <div class="icon-right"><i class="feather-chevron-right"></i></div>
                                 </li>
-                                <li class="rbt-breadcrumb-item active">Web Development</li>
+                                <li class="rbt-breadcrumb-item active">{{ $course->category->name ?? 'Môn học' }}</li>
                             </ul>
-                            <h2 class="title">The Complete Histudy 2024: From Zero to Expert!</h2>
-                            <p class="description">Master Python by building 100 projects in 100 days. Learn data
-                                science, automation, build websites, games and apps!</p>
-    
+                            <h2 class="title">{{ $course->course_name }}</h2>
+                            <p class="description">{!! $course->short_description !!}</p>
+            
                             <div class="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
-    
+            
                                 <div class="feature-sin best-seller-badge">
-                                    <span class="rbt-badge-2">
-                                        <span class="image"><img src="/assets/images/icons/card-icon-1.png"
-                                                alt="Best Seller Icon"></span> Bestseller
-                                    </span>
+                                    @if($course->is_best_seller)
+                                        <span class="rbt-badge-2">
+                                            <span class="image">
+                                                <img src="/assets/images/icons/card-icon-1.png" alt="Best Seller Icon">
+                                            </span> Bestseller
+                                        </span>
+                                    @endif
                                 </div>
-    
+            
                                 <div class="feature-sin rating">
-                                    <a href="#">4.8</a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
+                                    <a href="#">5</a>
+                                    @for ($i = 0; $i < 5; $i++)
+                                        <a href="#"><i class="fa fa-star "></i></a>
+                                    @endfor
                                 </div>
-    
+            
                                 <div class="feature-sin total-rating">
-                                    <a class="rbt-badge-4" href="#">215,475 rating</a>
+                                    <a class="rbt-badge-4" href="#">{{ $course->feedbacks->count() }} Đánh giá</a>
                                 </div>
-    
+            
                                 <div class="feature-sin total-student">
-                                    <span>616,029 students</span>
+                                    <span>{{ $course->students->count() }} Học sinh</span>
                                 </div>
-    
+            
                             </div>
-    
+            
                             <div class="rbt-author-meta mb--20">
                                 <div class="rbt-avater">
                                     <a href="#">
-                                        <img src="/assets/images/client/avatar-02.png" alt="Sophia Jaymes">
+                                        <img src="{{ $course->creator->profile_image ?? '/assets/images/client/avatar-02.png' }}" alt="{{ $course->creator->name }}">
                                     </a>
                                 </div>
                                 <div class="rbt-author-info">
-                                    By <a href="profile.html">Angela</a> In <a href="#">Development</a>
+                                    khóa học được tạo bởi <a href="#">{{ $course->creator->name }}</a> </a>
                                 </div>
                             </div>
-    
+            
                             <ul class="rbt-meta">
-                                <li><i class="feather-calendar"></i>Last updated 12/2024</li>
-                                <li><i class="feather-globe"></i>English</li>
-                                <li><i class="feather-award"></i>Certified Course</li>
+                                <li><i class="feather-calendar"></i>Cập nhật lần cuối {{ $course->updated_at->format('m/Y') }}</li>
                             </ul>
-    
+            
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
         <!-- End Breadcrumb Area -->
     
@@ -207,8 +206,9 @@
                     <div class="col-lg-8">
                         <div class="course-details-content">
                             <div class="rbt-course-feature-box rbt-shadow-box thuumbnail">
-                                <img class="w-100" src="/assets/images/course/course-01.jpg" alt="Card image">
+                                <img class="w-100" src="{{ asset($course->image) }}" alt="{{ $course->course_name }}">
                             </div>
+                            
     
                             <div class="rbt-inner-onepage-navigation sticky-top mt--30">
                                 <nav class="mainmenu-nav onepagenav">
@@ -1303,70 +1303,24 @@
                             <div class="inner">
     
                                 <!-- Start Viedo Wrapper  -->
-                                <a class="video-popup-with-text video-popup-wrapper text-center popup-video sidebar-video-hidden mb--15" href="https://www.youtube.com/watch?v=nA1Aqp0sPQo">
-                                    <div class="video-content">
-                                        <img class="w-100 rbt-radius" src="/assets/images/others/video-01.jpg" alt="Video Images">
-                                        <div class="position-to-top">
-                                            <span class="rbt-btn rounded-player-2 with-animation">
-                                                <span class="play-icon"></span>
-                                            </span>
-                                        </div>
-                                        <span class="play-view-text d-block color-white"><i class="feather-eye"></i> Preview
-                                            this course</span>
-                                    </div>
-                                </a>
+                               
                                 <!-- End Viedo Wrapper  -->
     
                                 <div class="content-item-content">
-                                    <div class="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
-                                        <div class="rbt-price">
-                                            <span class="current-price">$60.99</span>
-                                            <span class="off-price">$84.99</span>
-                                        </div>
-                                        <div class="discount-time">
-                                            <span class="rbt-badge color-danger bg-color-danger-opacity"><i
-                                                    class="feather-clock"></i> 3 days left!</span>
-                                        </div>
-                                    </div>
-    
-                                    <div class="add-to-card-button mt--15">
-                                        <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#">
-                                            <span class="btn-text">Add to Cart</span>
-                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </a>
-                                    </div>
-    
-                                    <div class="buy-now-btn mt--15">
-                                        <a class="rbt-btn btn-border icon-hover w-100 d-block text-center" href="#">
-                                            <span class="btn-text">Buy Now</span>
-                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </a>
-                                    </div>
-    
-                                    <span class="subtitle"><i class="feather-rotate-ccw"></i> 30-Day Money-Back
-                                        Guarantee</span>
-    
-    
+                                     
                                     <div class="rbt-widget-details has-show-more">
                                         <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
-                                            <li><span>Start Date</span><span class="rbt-feature-value rbt-badge-5">5 Hrs 20
-                                                    Min</span>
-                                            </li>
-                                            <li><span>Enrolled</span><span class="rbt-feature-value rbt-badge-5">100</span>
-                                            </li>
-                                            <li><span>Lectures</span><span class="rbt-feature-value rbt-badge-5">50</span>
-                                            </li>
-                                            <li><span>Skill Level</span><span
-                                                    class="rbt-feature-value rbt-badge-5">Basic</span></li>
-                                            <li><span>Language</span><span
-                                                    class="rbt-feature-value rbt-badge-5">English</span></li>
-                                            <li><span>Quizzes</span><span class="rbt-feature-value rbt-badge-5">10</span>
-                                            </li>
-                                            <li><span>Certificate</span><span
-                                                    class="rbt-feature-value rbt-badge-5">Yes</span></li>
-                                            <li><span>Pass Percentage</span><span
-                                                    class="rbt-feature-value rbt-badge-5">95%</span></li>
+                                            <li><span>Ngày tạo</span><span class="rbt-feature-value rbt-badge-5">{{ $course->created_at->format('d/m/Y') }}</span></li>
+                                        
+                                            <li><span>Số bài học</span><span class="rbt-feature-value rbt-badge-5">{{ $course->materials->count() }}</span></li>
+                                        
+                                            <li><span>Số lượng sinh viên</span><span class="rbt-feature-value rbt-badge-5">{{ $course->students->count() }}</span></li>
+                                        
+                                            <li><span>Số lượng đánh giá</span><span class="rbt-feature-value rbt-badge-5">{{ $course->feedbacks->count() }}</span></li>
+                                        
+                                            <li><span>Lần cập nhật cuối</span><span class="rbt-feature-value rbt-badge-5">{{ $course->updated_at->format('d/m/Y') }}</span></li>
                                         </ul>
+                                        
                                         <div class="rbt-show-more-btn">Show More</div>
                                     </div>
     
@@ -1393,11 +1347,13 @@
                                         </div>
                                         <hr class="mt--20">
                                         <div class="contact-with-us text-center">
-                                            <p>For details about the course</p>
-                                            <p class="rbt-badge-2 mt--10 justify-content-center w-100"><i
-                                                    class="feather-phone mr--5"></i> Call Us: <a href="#"><strong>+444 555
-                                                        666 777</strong></a></p>
+                                            <p>Để biết thêm chi tiết về khóa học</p>
+                                            <p class="rbt-badge-2 mt--10 justify-content-center w-100">
+                                                <i class="feather-phone mr--5"></i> Gọi ngay: 
+                                                <a href="#"><strong>+444 555 666 777</strong></a>
+                                            </p>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
