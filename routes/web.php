@@ -16,7 +16,7 @@ use App\Livewire\VerifyAccount;
 
 Route::get('/', Home::class)->name('home');
 Route::get('/auth', AuthForm::class)->name('auth');
-Route::middleware(['guest'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', StudentDashboard::class)->name('dashboard');
     Route::get('/dashboard/profile', Profile::class)->name('dashboard.profile');
     Route::get('/dashboard/enrolled-courses', EnrolledCourses::class)->name('dashboard.enrolled-courses');

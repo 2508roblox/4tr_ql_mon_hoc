@@ -21,4 +21,9 @@ protected $casts = ['file_path'=> 'array'];
     {
         return $this->belongsTo(Course::class);
     }
+    public function lessonResources()
+    {
+        return $this->hasMany(LessonResource::class);
+    }
+    
 }

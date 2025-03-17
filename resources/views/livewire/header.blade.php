@@ -28,7 +28,7 @@
                                 </li>
         
                                 <li class="with-megamenu">
-                                    <a href="{{ route('courses.index') }}">Khoá Học</a>
+                                    <a href="{{ route('courses.index') }}">Môn học</a>
                                 </li>
                             </ul>
                         </nav>
@@ -84,7 +84,7 @@
                     <div class="row g-4 pt--30 pb--60">
                         <div class="col-lg-12">
                             <div class="section-title">
-                                <h5 class="rbt-title-style-2">Khoá học nổi bật</h5>
+                                <h5 class="rbt-title-style-2">Môn học nổi bật</h5>
                             </div>
                         </div>
         
@@ -130,7 +130,7 @@
                         <button class="close-button rbt-round-btn"><i class="feather-x"></i></button>
                     </div>
                 </div>
-                <p class="description">Hệ thống quản lý môn học giúp bạn theo dõi, đăng ký và quản lý các khóa học một cách dễ dàng.</p>
+                <p class="description">Hệ thống quản lý môn học giúp bạn theo dõi, đăng ký và quản lý các môn học một cách dễ dàng.</p>
                 <ul class="navbar-top-left rbt-information-list justify-content-start">
                     <li>
                         <a href="mailto:contact@qlmonhoc.com"><i class="feather-mail"></i>contact@qlmonhoc.com</a>
@@ -149,7 +149,7 @@
                     </li>
                     
                     <li class="">
-                        <a href="{{ route('courses.index') }}">Khoá Học</a>
+                        <a href="{{ route('courses.index') }}">Môn học</a>
                     </li>
                     
                 </ul>

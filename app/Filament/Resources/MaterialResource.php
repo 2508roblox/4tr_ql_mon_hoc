@@ -9,6 +9,7 @@ use App\Models\Material;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -64,29 +65,24 @@ class MaterialResource extends Resource
                     ])
                     ->columns(1),
         
-                Section::make('Thông tin liên quan')
+                    Repeater::make('lessonResources')
+                    ->label('Tài liệu bài học')
+                    ->relationship('lessonResources') // Thiết lập quan hệ với bảng lesson_resources
                     ->schema([
-                        Select::make('course_id')
-                            ->label('Thuộc môn học')
-                            ->options(Course::pluck('course_name', 'id'))
-                            ->searchable()
+                        TextInput::make('name')
+                            ->label('Tên tài liệu')
                             ->required(),
-        
+
                         FileUpload::make('file_path')
-                            ->label('Tài liệu bài học')
+                            ->label('Tải tệp')
                             ->directory('lesson_files')
-                            ->multiple()
                             ->maxSize(102400) 
                             ->columnSpanFull(),
-        
-                        FileUpload::make('video_path')
-                            ->label('Video bài học')
-                            ->directory('lesson_videos')
-                            ->maxSize(102400) 
-                            ->acceptedFileTypes(['video/mp4', 'video/mkv', 'video/avi']) // Chỉ cho phép video
-                            ->columnSpanFull(),
+
+                     
                     ])
-                    ->columns(1),
+                    ->columnSpanFull()
+                    ->addActionLabel('Thêm tài liệu mới'),
             ]),
         ]);
         
