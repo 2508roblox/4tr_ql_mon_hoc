@@ -26,7 +26,7 @@ class EnrollmentResource extends Resource
     protected static ?string $pluralLabel = 'Ghi danh';
     protected static ?string $modelLabel = 'Ghi danh';
     protected static ?string $slug = 'ghi-danh'; 
-    protected static ?string $navigationGroup = 'Quản lý Học viên';
+    protected static ?string $navigationGroup = 'Quản Lý Môn Học';
     public static function form(Form $form): Form
     {
         return $form

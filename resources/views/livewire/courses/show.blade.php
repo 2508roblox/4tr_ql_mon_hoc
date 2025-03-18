@@ -459,7 +459,7 @@
                                 </div>
                             </div>
                             <!-- End Edu Review List  -->
-                            @if(auth()->check())
+                            @if(auth('student')->check())
                             <div class="feedback-form about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
                                 <h3>Đánh giá môn học</h3>
                         

@@ -30,6 +30,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandLogo(asset('assets/logo_light.png'))
+            ->brandLogoHeight('3rem')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -63,6 +65,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugin(
                 \Hasnayeen\Themes\ThemesPlugin::make()
-            );;
+            );
     }
 }

@@ -33,7 +33,7 @@ class MaterialResource extends Resource
     protected static ?string $pluralLabel = 'Bài học';
     protected static ?string $slug = 'bai-hoc';
     protected static ?string $modelLabel = 'Bài học';
-    protected static ?string $navigationGroup = 'Quản lý Môn học';
+    protected static ?string $navigationGroup = 'Quản Lý Môn Học';
 
     public static function form(Form $form): Form
     {
@@ -67,19 +67,21 @@ class MaterialResource extends Resource
         
                     Repeater::make('lessonResources')
                     ->label('Tài liệu bài học')
-                    ->relationship('lessonResources') // Thiết lập quan hệ với bảng lesson_resources
+                    ->relationship('lessonResources')
                     ->schema([
                         TextInput::make('name')
                             ->label('Tên tài liệu')
                             ->required(),
 
-                        FileUpload::make('file_path')
+                        FileUpload::make('file_path')   
                             ->label('Tải tệp')
                             ->directory('lesson_files')
-                            ->maxSize(102400) 
+                            ->maxSize(102400)
+                            ->preserveFilenames()
+                            ->downloadable(false)
+                            ->previewable(false)
+                            ->visibility('private')
                             ->columnSpanFull(),
-
-                     
                     ])
                     ->columnSpanFull()
                     ->addActionLabel('Thêm tài liệu mới'),
@@ -116,6 +118,12 @@ class MaterialResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('view_video')
+                    ->label('Xem tài liệu bài học')
+                    ->icon('heroicon-o-document-text')
+                    ->url(fn (Material $record): string => 
+                        static::getUrl('view-video', ['record' => $record])
+                    ),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -137,6 +145,7 @@ class MaterialResource extends Resource
             'index' => Pages\ListMaterials::route('/'),
             'create' => Pages\CreateMaterial::route('/create'),
             'edit' => Pages\EditMaterial::route('/{record}/edit'),
+            'view-video' => Pages\ViewVideo::route('/{record}/video'),
         ];
     }
 }

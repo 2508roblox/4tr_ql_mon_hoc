@@ -1,6 +1,5 @@
 <div>
     <body>
-
         <div id="my_switcher" class="my_switcher">
             <ul>
                 <li>
@@ -16,9 +15,7 @@
             </ul>
         </div>
     
-      
-    
-    
+     
         <!-- Start Side Vav -->
         <div class="rbt-cart-side-menu">
             <div class="inner-wrapper">
@@ -127,13 +124,11 @@
         </div>
         <!-- End Side Vav -->
         <a class="close_side_menu" href="javascript:void(0);"></a>
-    
         <div class="rbt-page-banner-wrapper">
             <!-- Start Banner BG Image  -->
             <div class="rbt-banner-image"></div>
             <!-- End Banner BG Image  -->
         </div>
-    
         <!-- Start Card Style -->
         <div class="rbt-dashboard-area rbt-section-overlayping-top rbt-section-gapBottom">
             <div class="container">
@@ -147,112 +142,70 @@
                             <div class="col-lg-3">
                                 <livewire:dashboard.student-sidebar />
                             </div>
+    
                             <div class="col-lg-9">
-                                <!-- Start Instructor Profile  -->
-                                <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
+                                <div class="rbt-dashboard-content bg-color-white rbt-shadow-box mb--60">
                                     <div class="content">
                                         <div class="section-title">
-                                            <h4 class="rbt-title-style-3">Thông tin cá nhân</h4>
+                                            <h4 class="rbt-title-style-3">Lịch sử học tập</h4>
                                         </div>
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Ngày đăng ký</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->created_at->format('d/m/Y H:i') }}</div>
-                                            </div>
+                                        <div class="rbt-dashboard-table table-responsive mobile-table-750">
+                                            <table class="rbt-table table table-borderless">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Mã khóa học</th>
+                                                        <th>Tên khóa học</th>
+                                                        <th>Bài học</th>
+                                                        <th>Ngày học</th>
+                                                        <th>Trạng thái</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse($histories as $history)
+                                                        <tr>
+                                                            <th>#{{ $history->lessonResource->material->course->id }}</th>
+                                                            <td>
+                                                                <a href="{{ route('courses.show', ['slug' => $history->lessonResource->material->course->slug]) }}" class="text-primary">
+                                                                    {{ $history->lessonResource->material->course->course_name }}
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ route('lessons.show', ['lesson' => $history->lessonResource->material->id, 'lesson_resource_id' => $history->lessonResource->id]) }}" class="text-primary">
+                                                                    {{ $history->lessonResource->material->title }}
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ $history->created_at->format('d/m/Y H:i') }}</td>
+                                                            <td>
+                                                                @if($history->is_completed)
+                                                                    <span class="rbt-badge-5 bg-color-success-opacity color-success">Hoàn thành</span>
+                                                                @else
+                                                                    <span class="rbt-badge-5 bg-color-warning-opacity color-warning">Chưa hoàn thành</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="5" class="text-center">Không có lịch sử học tập nào</td>
+                                                        </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Mã sinh viên</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->student_id }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Họ và tên</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->full_name }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Email</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->email }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Số khóa học đã đăng ký</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->enrollments->count() }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Số bài học đã hoàn thành</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->learningHistories->where('is_completed', true)->count() }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Số lần điểm danh</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->attendances->where('status', 'present')->count() }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
                                     </div>
                                 </div>
-                                <!-- End Instructor Profile  -->
-    
                             </div>
                         </div>
-    
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Card Style -->
-    
-    
-    
-    
         <div class="rbt-separator-mid">
             <div class="container">
                 <hr class="rbt-separator m-0">
             </div>
         </div>
-        <!-- Start Footer aera -->
-        
+       
         <!-- End Footer aera -->
         <div class="rbt-progress-parent">
             <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
@@ -260,7 +213,6 @@
             </svg>
         </div>
     
-     
+  
     </body>
-    
 </div>

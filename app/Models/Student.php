@@ -12,7 +12,7 @@ class Student extends Authenticatable
     use HasFactory;
     use Notifiable;
     protected $fillable = ['student_id', 'full_name', 'email', 'password', 'email_verified_at'
-, 'verification_code'];
+, 'verification_code', 'remember_token'];
 
     protected $hidden = ['password'];
 
@@ -26,7 +26,7 @@ class Student extends Authenticatable
         return $this->belongsToMany(Course::class, 'enrollments');
     }
 
-    public function attendance()
+    public function attendances()
     {
         return $this->hasMany(Attendance::class);
     }
@@ -40,7 +40,11 @@ class Student extends Authenticatable
     {
         return $this->hasMany(Feedback::class);
     }
- 
+
+    public function learningHistories()
+    {
+        return $this->hasMany(StudentLearningHistory::class);
+    }
 
     protected $casts = [
         'email_verified_at' => 'datetime',

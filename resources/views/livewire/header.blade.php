@@ -44,11 +44,42 @@
                             </li>
                         </ul>
         
-                        <div class="rbt-btn-wrapper d-none d-xl-block ml--20">
-                            <a class="rbt-btn rbt-switch-btn btn-gradient btn-sm hover-transform-none" href="{{ route('auth') }}">
-                                <span data-text="Đăng ký ngay">Đăng ký ngay</span>
-                            </a>
+                        @if ($student)
+                <li style="border-left: 1px solid gray;padding-left:1rem;" class="account-access rbt-user-wrapper d-none d-xl-block">
+                    <a href="#"><i class="feather-user"></i>Xin chào, {{ $student->full_name }}</a>
+                    <div class="rbt-user-menu-list-wrapper">
+                        <div class="inner">
+                            <div class="rbt-admin-profile">
+                                <div class="admin-thumbnail">
+                                    <img src="{{ asset('assets/2afdbc3aab8c8b066d95f812f91df33e.jpg') }}" alt="User Image">
+                                </div>
+                                <div class="admin-info">
+                                    <span class="name">{{ $student->full_name }}</span>
+                                    <a class="rbt-btn-link color-primary" href="{{ route('dashboard.profile') }}">Xem hồ sơ</a>
+                                </div>
+                            </div>
+                            <ul class="user-list-wrapper">
+                                <li><a href="{{ route('dashboard') }}"><i class="feather-home"></i><span>Bảng điều khiển</span></a></li>
+                                <li><a href="{{ route('dashboard.enrolled-courses') }}"><i class="feather-shopping-bag"></i><span>Khóa học đã đăng ký</span></a></li>
+                                <li><a href="{{ route('dashboard.reviews') }}"><i class="feather-star"></i><span>Đánh giá</span></a></li>
+                                <li><a href="{{ route('dashboard.settings') }}"><i class="feather-settings"></i><span>Cài đặt</span></a></li>
+                                <li>
+                                    <a href="#" wire:click.prevent="logout">
+                                        <i class="feather-log-out"></i>
+                                        <span>Đăng xuất</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
+                </li>
+            @else
+                <div class="rbt-btn-wrapper mb--20">
+                    <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="{{ route('auth') }}">
+                        <span>Đăng Ký Ngay</span>
+                    </a>
+                </div>
+            @endif
         
                         <!-- Start Mobile-Menu-Bar -->
                         <div class="mobile-menu-bar ml--5 d-block d-xl-none">
@@ -68,37 +99,8 @@
                 <div class="wrapper">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="#">
-                                <input type="text" placeholder="Bạn đang tìm kiếm gì?">
-                                <div class="submit-btn">
-                                    <a class="rbt-btn btn-gradient btn-md" href="#">Tìm kiếm</a>
-                                </div>
-                            </form>
+                            <livewire:search />
                         </div>
-                    </div>
-        
-                    <div class="rbt-separator-mid">
-                        <hr class="rbt-separator m-0">
-                    </div>
-        
-                    <div class="row g-4 pt--30 pb--60">
-                        <div class="col-lg-12">
-                            <div class="section-title">
-                                <h5 class="rbt-title-style-2">Môn học nổi bật</h5>
-                            </div>
-                        </div>
-        
-                        <!-- Start Course Card  -->
-                       
-                        <!-- End Course Card  -->
-        
-                        <!-- Start Course Card  -->
-                      
-                        <!-- End Course Card  -->
-        
-                        <!-- Start Course Card  -->
-                        
-                        <!-- End Course Card  -->
                     </div>
                 </div>
             </div>

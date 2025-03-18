@@ -23,6 +23,7 @@ use Filament\Tables\Table;
 use Filament\Widgets\StatsOverviewWidget;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Contracts\View\View;
 
 class CourseResource extends Resource
 {
@@ -33,7 +34,7 @@ class CourseResource extends Resource
     protected static ?string $pluralLabel = 'Môn học';
     protected static ?string $slug = 'mon-hoc'; // Đường dẫn trên menu admin
     protected static ?string $modelLabel = 'Môn học';
-    protected static ?string $navigationGroup = 'Quản lý Môn học';
+    protected static ?string $navigationGroup = 'Quản Lý Môn Học';
     public static function form(Form $form): Form
     {
         return $form
@@ -53,8 +54,7 @@ class CourseResource extends Resource
 
                             TextInput::make('slug')
                             ->label('Slug')
-                        // Không cho người dùng chỉnh sửa
-                           // Vẫn gửi giá trị lên server
+                            ->disabled()
                             ->columnSpanFull(),
                         RichEditor::make('short_description')
                             ->label('Mô tả ngắn')
@@ -134,6 +134,16 @@ class CourseResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('view_students')
+                    ->label('Xem sinh viên')
+                    ->icon('heroicon-o-users')
+                    ->modalHeading('Danh sách sinh viên đã ghi danh')
+                    ->modalContent(fn (Course $record): View => view(
+                        'filament.resources.course-resource.pages.view-students-modal',
+                        ['course' => $record]
+                    ))
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Đóng'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
