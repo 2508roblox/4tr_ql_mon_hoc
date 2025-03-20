@@ -249,7 +249,7 @@
     <div class="rbt-card variation-01 rbt-hover">
         <div class="rbt-card-img">
             <a href="{{ route('courses.show', ['slug' => $course->slug]) }}">
-                <img src="{{ asset('storage/' .  $course->image) }}" alt="{{ $course->course_name }}">
+                <img style="height: 200px; object-fit: cover;" src="{{ asset('storage/' .  $course->image) }}" alt="{{ $course->course_name }}">
             </a>
         </div>
         <div class="rbt-card-body">

@@ -21,8 +21,10 @@ class User extends Authenticatable implements HasName
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -47,6 +49,23 @@ class User extends Authenticatable implements HasName
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Kiểm tra xem user có phải là admin không
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Kiểm tra xem user có phải là giảng viên không
+     */
+    public function isTeacher(): bool
+    {
+        return $this->role === 'giảng viên';
+    }
+
     public function getFilamentName(): string
     {
         return "{$this->name} ";

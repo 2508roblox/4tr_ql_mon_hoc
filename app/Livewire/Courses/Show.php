@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Course;
 use App\Models\Feedback;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Grade;
 
 class Show extends Component
 {
@@ -15,11 +16,17 @@ class Show extends Component
     public $relatedCourses;
     public $averageRating;
     public $ratingPercentages;
+    public $grades = [];
+    public $gradeData = [];
 
     public $rating = 1; // Mặc định là 5 sao
     public $understand = false;
     public $comment = '';
     public $isEnrolled = false; // Kiểm tra trạng thái đăng ký
+
+    public $showGradesModal = false;
+    public $showGradeViewer = false;
+    public $selectedGrade = null;
 
     public function setRating($value)
     {
@@ -55,11 +62,33 @@ class Show extends Component
     public function mount($slug)
     {
         $this->course = Course::where('slug', $slug)
-            ->with(['creator', 'students', 'feedbacks', 'materials'])
+            ->with(['creator', 'students', 'feedbacks', 'materials', 'grades'])
             ->firstOrFail(); 
 
         $this->feedbacks = $this->course->feedbacks()->latest()->get();
         $this->lessons = $this->course->materials()->latest()->get();
+        $this->grades = $this->course->grades()->latest()->get();
+        
+        // Xử lý dữ liệu Excel cho mỗi bảng điểm
+        foreach ($this->grades as $grade) {
+            try {
+                $xlsx = new \Shuchkin\SimpleXLSX(storage_path('app/public/' . $grade->file_path));
+                if ($xlsx) {
+                    $rows = $xlsx->rows();
+                    $headers = array_shift($rows);
+                    $this->gradeData[$grade->id] = [
+                        'headers' => $headers,
+                        'rows' => $rows
+                    ];
+                }
+            } catch (\Exception $e) {
+                $this->gradeData[$grade->id] = [
+                    'headers' => [],
+                    'rows' => []
+                ];
+            }
+        }
+
         $this->relatedCourses = Course::where('id', '!=', $this->course->id)
             ->inRandomOrder()
             ->limit(3)
@@ -73,11 +102,12 @@ class Show extends Component
             $count = $this->feedbacks->where('rating', $i)->count();
             $this->ratingPercentages[$i] = $totalFeedbacks > 0 ? round(($count / $totalFeedbacks) * 100) : 0;
         }
+
         $studentId = Auth::guard('student')->id();
         $alreadyEnrolled = \App\Models\Enrollment::where('student_id', $studentId)
-        ->where('course_id', $this->course->id)
-        ->exists();
-        $this->isEnrolled   = $alreadyEnrolled;
+            ->where('course_id', $this->course->id)
+            ->exists();
+        $this->isEnrolled = $alreadyEnrolled;
     }
 
     public function submitFeedback()
@@ -108,6 +138,37 @@ class Show extends Component
 
         // Load lại danh sách đánh giá
         $this->feedbacks = $this->course->feedbacks()->latest()->get();
+    }
+
+    public function showGrades()
+    {
+        if (!$this->isEnrolled) {
+            session()->flash('error', 'Bạn cần tham gia khóa học để xem bảng điểm.');
+            return;
+        }
+
+        $this->grades = Grade::where('course_id', $this->course->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $this->showGradesModal = true;
+    }
+
+    public function closeGradesModal()
+    {
+        $this->showGradesModal = false;
+        $this->grades = [];
+    }
+
+    public function viewGrade($gradeId)
+    {
+        $this->selectedGrade = Grade::find($gradeId);
+        $this->showGradeViewer = true;
+    }
+
+    public function closeGradeViewer()
+    {
+        $this->showGradeViewer = false;
+        $this->selectedGrade = null;
     }
 
     public function render()

@@ -23,6 +23,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class MaterialResource extends Resource
 {
@@ -37,11 +38,27 @@ class MaterialResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $user = Auth::user();
+        $isTeacher = $user->role === 'giảng viên';
+        $userId = $user->id;
+
+        $courseQuery = Course::query();
+        if ($isTeacher) {
+            $courseQuery->where('created_by', $userId);
+        }
+
         return $form
         ->schema([
             Grid::make(2)->schema([
                 Section::make('Thông tin bài học')
                     ->schema([
+                        Select::make('course_id')
+                            ->label('Thuộc môn học')
+                            ->options($courseQuery->pluck('course_name', 'id'))
+                            ->searchable()
+                            ->required()
+                            ->columnSpanFull(),
+
                         TextInput::make('title')
                             ->label('Tiêu đề')
                             ->required()
@@ -129,7 +146,15 @@ class MaterialResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                $user = Auth::user();
+                if ($user->role === 'giảng viên') {
+                    $query->whereHas('course', function ($q) use ($user) {
+                        $q->where('created_by', $user->id);
+                    });
+                }
+            });
     }
 
     public static function getRelations(): array

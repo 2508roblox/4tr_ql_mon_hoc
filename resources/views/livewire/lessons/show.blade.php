@@ -6,7 +6,7 @@
                 <div class="rbt-lesson-leftsidebar">
                     <div class="rbt-course-feature-inner rbt-search-activation">
                         <div class="section-title">
-                            <h4 class="rbt-title-style-3">Course Content</h4>
+                            <h4 class="rbt-title-style-3">Nội dung môn học</h4>
                         </div>
     
                         <div class="lesson-search-wrapper">
@@ -148,10 +148,40 @@
                                         $phpWord = \PhpOffice\PhpWord\IOFactory::load(storage_path('app/public/' . $currentResource->file_path));
                                         $htmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
                                         $htmlContent = $htmlWriter->getContent();
+                                        
+                                        // Đếm số trang bằng cách đếm số lần xuất hiện của class page-break
+                                        $totalPages = substr_count($htmlContent, 'page-break') + 1;
+                                        
+                                        // Cắt nội dung để chỉ hiển thị 4 trang đầu
+                                        $htmlContent = preg_replace('/<div class="page-break">/i', '<div class="page-break" data-page="', $htmlContent);
+                                        $htmlContent = preg_replace('/<\/div>/i', '"></div>', $htmlContent);
+                                        
+                                        // Tìm vị trí của trang thứ 5 (nếu có)
+                                        $pos = strpos($htmlContent, 'data-page="5"');
+                                        if ($pos !== false) {
+                                            $htmlContent = substr($htmlContent, 0, $pos);
+                                        }
                                     @endphp
+                                    <style>
+                                        .docx-content img {
+                                            max-width: 100% !important;
+                                            height: auto !important;
+                                            display: block;
+                                            margin: 10px auto;
+                                        }
+                                        .docx-content table img {
+                                            max-width: 100% !important;
+                                            height: auto !important;
+                                        }
+                                    </style>
                                     <div class="docx-content" style="background: white; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
                                         {!! $htmlContent !!}
                                     </div>
+                                    @if($totalPages > 4)
+                                        <div class="alert alert-info mt-3">
+                                            <i class="feather-info"></i> Hiển thị 4 trang đầu tiên trong tổng số {{ $totalPages }} trang. Vui lòng tải xuống file để xem đầy đủ.
+                                        </div>
+                                    @endif
                                     <div class="mt-3">
                                         <a href="{{ asset('storage/' . $currentResource->file_path) }}" class="rbt-btn btn-primary" download>
                                             <i class="feather-download"></i> Tải xuống {{ $currentResource->name }}
@@ -168,6 +198,8 @@
                                         $xlsx = new \Shuchkin\SimpleXLSX(storage_path('app/public/' . $currentResource->file_path));
                                         $rows = $xlsx->rows();
                                         $headers = array_shift($rows);
+                                        $totalRows = count($rows);
+                                        $displayRows = array_slice($rows, 0, 30);
                                     @endphp
                                     <div class="excel-content" style="background: white; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
                                         <div style="overflow-x: auto;">
@@ -180,7 +212,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach($rows as $row)
+                                                    @foreach($displayRows as $row)
                                                         <tr>
                                                             @foreach($row as $cell)
                                                                 <td style="white-space: nowrap; padding: 10px; border: 1px solid #dee2e6;">{{ $cell }}</td>
@@ -190,6 +222,11 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        @if($totalRows > 30)
+                                            <div class="alert alert-info mt-3">
+                                                <i class="feather-info"></i> Hiển thị 30 dòng đầu tiên trong tổng số {{ $totalRows }} dòng. Vui lòng tải xuống file để xem đầy đủ.
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             @elseif($extension == 'pptx')
@@ -207,6 +244,8 @@
                                 <div class="file-download">
                                     <a href="{{ asset('storage/' . $currentResource->file_path) }}" class="rbt-btn btn-primary" download>
                                         <i class="feather-download"></i> Tải xuống {{ $currentResource->name }}
+
+
                                     </a>
                                 </div>
                             @endif

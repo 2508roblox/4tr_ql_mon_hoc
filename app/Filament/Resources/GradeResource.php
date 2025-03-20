@@ -38,15 +38,8 @@ class GradeResource extends Resource
         return $form
         ->schema([
             Grid::make(2)->schema([
-                Section::make('Thông tin Điểm số')
+                Section::make('Thông tin Bảng điểm')
                     ->schema([
-                        Select::make('student_id')
-                            ->label('Học sinh')
-                            ->options(Student::pluck('full_name', 'id'))
-                            ->searchable()
-                            ->required()
-                            ->columnSpanFull(),
-
                         Select::make('course_id')
                             ->label('Môn học')
                             ->options(Course::pluck('course_name', 'id'))
@@ -54,36 +47,29 @@ class GradeResource extends Resource
                             ->required()
                             ->columnSpanFull(),
 
-                        TextInput::make('score')
-                            ->label('Điểm số')
-                            ->numeric()
-                            ->minValue(0)
-                            ->maxValue(100)
+                        TextInput::make('grade_name')
+                            ->label('Tên bảng điểm')
                             ->required()
+                            ->maxLength(255)
                             ->columnSpanFull(),
-                    ])
-                    ->columns(1),
 
-                Section::make('Mô tả chi tiết')
-                    ->schema([
-                        Textarea::make('description')
-                            ->label('Nhận xét giáo viên')
-                            ->placeholder('Nhập nhận xét về bài kiểm tra...')
+                        Forms\Components\FileUpload::make('file_path')
+                            ->label('File bảng điểm')
+                            ->directory('grade-files')
+                            ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])
                             ->columnSpanFull(),
                     ])
-                    ->collapsible()
                     ->columns(1),
             ]),
         ]);
-
     }
 
     public static function table(Table $table): Table
     {
         return $table
         ->columns([
-            TextColumn::make('student.full_name')
-                ->label('Học sinh')
+            TextColumn::make('grade_name')
+                ->label('Tên bảng điểm')
                 ->sortable()
                 ->searchable(),
 
@@ -92,14 +78,14 @@ class GradeResource extends Resource
                 ->sortable()
                 ->searchable(),
 
-            BadgeColumn::make('score')
-                ->label('Điểm số')
-                ->color(fn ($state) => $state >= 50 ? 'success' : 'danger')
-                ->sortable(),
+            TextColumn::make('file_path')
+                ->label('File đính kèm')
+                ->toggleable(),
 
             TextColumn::make('created_at')
-                ->label('Ngày chấm điểm')
-                ->dateTime('d/m/Y'),
+                ->label('Ngày tạo')
+                ->dateTime('d/m/Y H:i')
+                ->sortable(),
         ])
             ->filters([
                 //

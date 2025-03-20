@@ -24,6 +24,8 @@ use Filament\Widgets\StatsOverviewWidget;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class CourseResource extends Resource
 {
@@ -54,7 +56,7 @@ class CourseResource extends Resource
 
                             TextInput::make('slug')
                             ->label('Slug')
-                            ->disabled()
+                            
                             ->columnSpanFull(),
                         RichEditor::make('short_description')
                             ->label('Mô tả ngắn')
@@ -90,7 +92,10 @@ class CourseResource extends Resource
                         ->label('Người tạo khóa học')
                         ->options(User::pluck('name', 'id'))
                         ->searchable()
-                        ->required(),
+                        ->required()
+                        ->default(fn () => Auth::id())
+                        ->disabled()
+                        ->dehydrated(),
                 ])
                 ->collapsible(),
         ]);
@@ -144,12 +149,19 @@ class CourseResource extends Resource
                     ))
                     ->modalSubmitAction(false)
                     ->modalCancelActionLabel('Đóng'),
+                
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                $user = Auth::user();
+                if ($user->isTeacher()) {
+                    $query->where('created_by', $user->id);
+                }
+            });
     }
     public static function getWidgets(): array
     {

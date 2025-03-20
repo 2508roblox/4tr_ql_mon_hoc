@@ -29,7 +29,7 @@ class AuthForm extends Component
 
         $this->verification_code = Str::random(6);
 
-        Student::create([
+        $student = Student::create([
             'email' => $this->email,
             'password' => Hash::make($this->password),
             'full_name' => $this->full_name,
@@ -37,8 +37,19 @@ class AuthForm extends Component
             'verification_code' => $this->verification_code,
         ]);
 
-        Mail::raw("Mã xác thực của bạn: {$this->verification_code}", function ($message) {
-            $message->to($this->email)->subject('Xác thực tài khoản');
+        // Tạo URL xác thực
+        $verificationUrl = route('verify', [
+            'email' => $this->email,
+            'code' => $this->verification_code
+        ]);
+
+        // Gửi email sử dụng template mới
+        Mail::send('emails.verify-email', [
+            'user' => $student,
+            'verificationUrl' => $verificationUrl
+        ], function ($message) {
+            $message->to($this->email)
+                   ->subject('Xác thực tài khoản - ' . config('app.name'));
         });
 
         $this->isRegisterLoading = false;

@@ -232,7 +232,7 @@
                                     <div class="rbt-card variation-03 rbt-hover">
                                         <div class="rbt-card-img">
                                             <a class="thumbnail-link" href="{{ route('courses.show', ['slug' => $course->slug]) }}">
-                                                <img src="{{asset('storage/' .  $course->image) }}" alt="{{  $course->course_name }}">
+                                                <img style="height: 200px; object-fit: cover;" src="{{asset('storage/' .  $course->image) }}" alt="{{  $course->course_name }}">
                                                 <span class="rbt-btn btn-white icon-hover btn-md">
                                                     <span class="btn-text">Xem Môn Học</span>
                                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>

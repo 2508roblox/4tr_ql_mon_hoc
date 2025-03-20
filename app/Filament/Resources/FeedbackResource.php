@@ -21,6 +21,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class FeedbackResource extends Resource
 {
@@ -116,7 +117,15 @@ class FeedbackResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                $user = Auth::user();
+                if ($user->role === 'giảng viên') {
+                    $query->whereHas('course', function ($q) use ($user) {
+                        $q->where('created_by', $user->id);
+                    });
+                }
+            });
     }
 
     public static function getRelations(): array

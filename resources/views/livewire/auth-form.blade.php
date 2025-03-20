@@ -175,7 +175,6 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 text-end">
-                                        <a class="rbt-btn-link" href="#">Quên mật khẩu?</a>
                                     </div>
                                 </div>
                     

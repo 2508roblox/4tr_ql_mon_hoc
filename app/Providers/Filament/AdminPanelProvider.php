@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\CustomLogin;
 use App\Filament\Resources\DashboardResource\Widgets\DashboardStatsWidget;
 use App\Filament\Resources\DashboardResource\Widgets\MaterialsPerWeekChart;
 use App\Filament\Resources\DashboardResource\Widgets\StudentsPerWeekChart;
@@ -20,6 +21,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Models\User;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -29,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(CustomLogin::class)
             ->brandLogo(asset('assets/logo_light.png'))
             ->brandLogoHeight('3rem')
             ->colors([
@@ -63,6 +65,8 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->authGuard('web')
+            ->authPasswordBroker('users')
             ->plugin(
                 \Hasnayeen\Themes\ThemesPlugin::make()
             );
