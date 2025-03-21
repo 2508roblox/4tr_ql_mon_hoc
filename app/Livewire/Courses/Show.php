@@ -25,6 +25,7 @@ class Show extends Component
     public $understand = false;
     public $comment = '';
     public $isEnrolled = false; // Kiểm tra trạng thái đăng ký
+    public $enrollmentStatus = null; // Lưu trạng thái đăng ký (0: chờ duyệt, 1: đã duyệt)
 
     public $showGradesModal = false;
     public $showGradeViewer = false;
@@ -35,32 +36,34 @@ class Show extends Component
         $this->rating = $value;
     }
     public function enrollCourse()
-{
-    if (!Auth::guard('student')->check()) {
-        session()->flash('enrolled', 'Bạn cần đăng nhập để tham gia khóa học.');
-        return;
+    {
+        if (!Auth::guard('student')->check()) {
+            session()->flash('enrolled', 'Bạn cần đăng nhập để tham gia khóa học.');
+            return;
+        }
+
+        $studentId = Auth::guard('student')->id();
+
+        // Kiểm tra nếu sinh viên đã tham gia khóa học
+        $alreadyEnrolled = \App\Models\Enrollment::where('student_id', $studentId)
+            ->where('course_id', $this->course->id)
+            ->exists();
+        $this->isEnrolled = $alreadyEnrolled;
+        
+        if ($alreadyEnrolled) {
+            session()->flash('enrolled', 'Bạn đã tham gia khóa học này.');
+            return;
+        }
+
+        // Đăng ký khóa học với trạng thái chờ duyệt
+        \App\Models\Enrollment::create([
+            'student_id' => $studentId,
+            'course_id' => $this->course->id,
+            'status' => 0 // 0: Chờ duyệt
+        ]);
+
+        session()->flash('enrolled', 'Bạn đã đăng ký khóa học thành công! Vui lòng chờ giảng viên duyệt.');
     }
-
-    $studentId = Auth::guard('student')->id();
-
-    // Kiểm tra nếu sinh viên đã tham gia khóa học
-    $alreadyEnrolled = \App\Models\Enrollment::where('student_id', $studentId)
-        ->where('course_id', $this->course->id)
-        ->exists();
-        $this->isEnrolled   = $alreadyEnrolled;
-    if ($alreadyEnrolled) {
-        session()->flash('enrolled', 'Bạn đã tham gia khóa học này.');
-        return;
-    }
-
-    // Đăng ký khóa học
-    \App\Models\Enrollment::create([
-        'student_id' => $studentId,
-        'course_id' => $this->course->id,
-    ]);
-
-    session()->flash('enrolled', 'Bạn đã tham gia khóa học thành công!');
-}
     public function mount($slug)
     {
         $this->course = Course::where('slug', $slug)
@@ -106,10 +109,12 @@ class Show extends Component
         }
 
         $studentId = Auth::guard('student')->id();
-        $alreadyEnrolled = \App\Models\Enrollment::where('student_id', $studentId)
+        $enrollment = \App\Models\Enrollment::where('student_id', $studentId)
             ->where('course_id', $this->course->id)
-            ->exists();
-        $this->isEnrolled = $alreadyEnrolled;
+            ->first();
+            
+        $this->isEnrolled = !is_null($enrollment);
+        $this->enrollmentStatus = $enrollment ? $enrollment->status : null;
 
         // Load attendances for current student if enrolled
         if (Auth::guard('student')->check()) {

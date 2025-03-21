@@ -9,6 +9,7 @@ use App\Models\Enrollment;
 use App\Models\Student;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -43,6 +44,11 @@ class EnrollmentResource extends Resource
                 ->options(Course::pluck('course_name', 'id'))
                 ->searchable()
                 ->required(),
+
+            Toggle::make('status')
+                ->label('Trạng thái duyệt')
+                ->helperText('Bật để duyệt, tắt để từ chối')
+                ->default(false),
         ]);
     }
 
@@ -63,12 +69,41 @@ class EnrollmentResource extends Resource
             TextColumn::make('created_at')
                 ->label('Ngày ghi danh')
                 ->dateTime('d/m/Y'),
+
+            TextColumn::make('status')
+                ->label('Trạng thái')
+                ->formatStateUsing(fn (int $state): string => match ($state) {
+                    0 => 'Chờ duyệt',
+                    1 => 'Đã duyệt',
+                    default => 'Không xác định',
+                })
+                ->color(fn (int $state): string => match ($state) {
+                    0 => 'warning',
+                    1 => 'success',
+                    default => 'gray',
+                }),
         ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('approve')
+                    ->label('Duyệt')
+                    ->icon('heroicon-o-check')
+                    ->color('success')
+                    ->visible(fn (Enrollment $record): bool => $record->status === 0)
+                    ->action(function (Enrollment $record): void {
+                        $record->update(['status' => 1]);
+                    }),
+                Tables\Actions\Action::make('reject')
+                    ->label('Từ chối')
+                    ->icon('heroicon-o-x-mark')
+                    ->color('danger')
+                    ->visible(fn (Enrollment $record): bool => $record->status === 0)
+                    ->action(function (Enrollment $record): void {
+                        $record->update(['status' => 0]);
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -644,16 +644,22 @@
                                                  
             @if ($isEnrolled)
             <div class="d-flex flex-column gap-2">
-                <button class="rbt-btn btn-gradient hover-icon-reverse w-100 rounded-pill" disabled>
-                    Đã tham gia
-                </button>
-                
-                <button wire:click="$set('showAttendanceModal', true)" class="rbt-btn btn-gradient hover-icon-reverse w-100 rounded-pill">
-                    <span class="icon-reverse-wrapper">
-                        <span class="btn-text">Điểm danh</span>
-                        <span class="btn-icon"><i class="feather-check-circle"></i></span>
-                    </span>
-                </button>
+                @if($enrollmentStatus == 0)
+                    <button class="rbt-btn btn-border hover-icon-reverse w-100 rounded-pill" disabled>
+                        Đang chờ duyệt
+                    </button>
+                @else
+                    <button class="rbt-btn btn-gradient hover-icon-reverse w-100 rounded-pill" disabled>
+                        Đã tham gia
+                    </button>
+                    
+                    <button wire:click="$set('showAttendanceModal', true)" class="rbt-btn btn-gradient hover-icon-reverse w-100 rounded-pill">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Điểm danh</span>
+                            <span class="btn-icon"><i class="feather-check-circle"></i></span>
+                        </span>
+                    </button>
+                @endif
             </div>
 
             <!-- Modal Điểm danh -->
