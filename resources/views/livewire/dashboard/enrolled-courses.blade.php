@@ -1,4 +1,20 @@
 <div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Khóa Học Đã Đăng Ký | Hệ Thống Quản Lý Môn Học MKT</title>
+        <meta name="description" content="Xem danh sách khóa học đã đăng ký và đã hoàn thành - Theo dõi tiến độ học tập, tiếp tục học và tải chứng chỉ">
+        <meta name="keywords" content="khóa học đã đăng ký, môn học đã tham gia, tiến độ học tập, chứng chỉ khóa học, môn học mkt">
+        <meta name="author" content="MKT Subject Management">
+        <meta property="og:title" content="Khóa Học Đã Đăng Ký | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:description" content="Xem danh sách khóa học đã đăng ký và đã hoàn thành - Theo dõi tiến độ học tập, tiếp tục học và tải chứng chỉ">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta name="robots" content="noindex, nofollow">
+        <link rel="canonical" href="{{ url()->current() }}" />
+    </head>
     <body>
 
         <div id="my_switcher" class="my_switcher">

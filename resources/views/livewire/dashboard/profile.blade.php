@@ -1,4 +1,20 @@
 <div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Thông Tin Cá Nhân | Hệ Thống Quản Lý Môn Học MKT</title>
+        <meta name="description" content="Xem và quản lý thông tin cá nhân sinh viên - Cập nhật thông tin, theo dõi tiến độ học tập và lịch sử tham gia khóa học">
+        <meta name="keywords" content="thông tin sinh viên, hồ sơ cá nhân, quản lý môn học, theo dõi học tập, môn học mkt">
+        <meta name="author" content="MKT Subject Management">
+        <meta property="og:title" content="Thông Tin Cá Nhân | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:description" content="Xem và quản lý thông tin cá nhân sinh viên - Cập nhật thông tin, theo dõi tiến độ học tập và lịch sử tham gia khóa học">
+        <meta property="og:type" content="profile">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta name="robots" content="noindex, nofollow">
+        <link rel="canonical" href="{{ url()->current() }}" />
+    </head>
     <body>
 
         <div id="my_switcher" class="my_switcher">

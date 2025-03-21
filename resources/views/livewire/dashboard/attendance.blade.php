@@ -1,4 +1,20 @@
 <div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lịch Sử Điểm Danh | Hệ Thống Quản Lý Môn Học MKT</title>
+        <meta name="description" content="Xem lịch sử điểm danh các môn học - Theo dõi trạng thái điểm danh, tuần học và môn học đã tham gia">
+        <meta name="keywords" content="lịch sử điểm danh, điểm danh online, quản lý môn học, theo dõi học tập, môn học mkt">
+        <meta name="author" content="MKT Subject Management">
+        <meta property="og:title" content="Lịch Sử Điểm Danh | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:description" content="Xem lịch sử điểm danh các môn học - Theo dõi trạng thái điểm danh, tuần học và môn học đã tham gia">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta name="robots" content="noindex, nofollow">
+        <link rel="canonical" href="{{ url()->current() }}" />
+    </head>
     <body>
 
         <div id="my_switcher" class="my_switcher">
@@ -218,4 +234,5 @@
     
     
     </body>
+    </html>
 </div>

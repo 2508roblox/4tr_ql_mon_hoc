@@ -1,4 +1,25 @@
 <div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ $lesson->title }} - {{ $course->course_name }} | Hệ Thống Quản Lý Môn Học MKT</title>
+        <meta name="description" content="Học {{ $lesson->title }} trong khóa học {{ $course->course_name }}. Khám phá nội dung chi tiết, tài liệu học tập và bài tập thực hành">
+        <meta name="keywords" content="{{ $lesson->title }}, {{ $course->course_name }}, bài học trực tuyến, học online, {{ $course->creator->name }}, môn học mkt">
+        <meta name="author" content="MKT Subject Management">
+        <meta property="og:title" content="{{ $lesson->title }} - {{ $course->course_name }} | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:description" content="Học {{ $lesson->title }} trong khóa học {{ $course->course_name }}. Khám phá nội dung chi tiết, tài liệu học tập và bài tập thực hành">
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:image" content="{{ asset('storage/' . $course->image) }}">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="{{ url()->current() }}" />
+        <meta property="article:published_time" content="{{ $lesson->created_at->toIso8601String() }}">
+        <meta property="article:modified_time" content="{{ $lesson->updated_at->toIso8601String() }}">
+        <meta property="article:section" content="{{ $course->category->name ?? 'Môn học' }}">
+        <meta property="article:tag" content="{{ $lesson->title }}, {{ $course->course_name }}, học online">
+    </head>
     <body class="rbt-header-sticky">
 
         <div class="rbt-lesson-area bg-color-white">
@@ -301,4 +322,5 @@
     
      
     </body>
+    </html>
 </div>

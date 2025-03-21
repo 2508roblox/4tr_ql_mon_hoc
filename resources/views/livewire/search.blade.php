@@ -94,5 +94,27 @@
         text-align: center;
         color: #666;
     }
+
+    /* Dark Mode Styles */
+    .active-dark-mode .search-result-card {
+        background: #1e1e1e;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .active-dark-mode .search-result-card .title {
+        color: #fff;
+    }
+
+    .active-dark-mode .search-result-card .description {
+        color: #b3b3b3;
+    }
+
+    .active-dark-mode .no-results {
+        color: #b3b3b3;
+    }
+
+    .active-dark-mode .search-result-card:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    }
     </style> 
 </div>

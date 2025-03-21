@@ -1,4 +1,20 @@
 <div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Danh Sách Môn Học - Hệ Thống Quản Lý Môn Học MKT</title>
+        <meta name="description" content="Xem danh sách đầy đủ các môn học trực tuyến tại MKT. Khám phá các khóa học chất lượng, đa dạng lĩnh vực và phù hợp với nhu cầu học tập của bạn">
+        <meta name="keywords" content="danh sách môn học, khóa học trực tuyến, môn học mkt, học online, quản lý môn học">
+        <meta name="author" content="MKT Subject Management">
+        <meta property="og:title" content="Danh Sách Môn Học - Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:description" content="Xem danh sách đầy đủ các môn học trực tuyến tại MKT. Khám phá các khóa học chất lượng, đa dạng lĩnh vực và phù hợp với nhu cầu học tập của bạn">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="{{ url()->current() }}" />
+    </head>
    
 <body class="rbt-header-sticky">
     <div id="my_switcher" class="my_switcher">

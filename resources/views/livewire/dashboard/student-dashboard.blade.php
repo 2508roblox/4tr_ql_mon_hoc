@@ -1,4 +1,20 @@
 <div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bảng Điều Khiển Sinh Viên | Hệ Thống Quản Lý Môn Học MKT</title>
+        <meta name="description" content="Bảng điều khiển sinh viên - Quản lý khóa học, theo dõi tiến độ học tập, xem lịch sử điểm danh và đánh giá môn học">
+        <meta name="keywords" content="bảng điều khiển sinh viên, quản lý môn học, theo dõi học tập, điểm danh online, môn học mkt">
+        <meta name="author" content="MKT Subject Management">
+        <meta property="og:title" content="Bảng Điều Khiển Sinh Viên | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:description" content="Bảng điều khiển sinh viên - Quản lý khóa học, theo dõi tiến độ học tập, xem lịch sử điểm danh và đánh giá môn học">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta name="robots" content="noindex, nofollow">
+        <link rel="canonical" href="{{ url()->current() }}" />
+    </head>
     <body>
         <div id="my_switcher" class="my_switcher">
             <ul>
@@ -231,4 +247,5 @@
     
   
     </body>
+    </html>
 </div>

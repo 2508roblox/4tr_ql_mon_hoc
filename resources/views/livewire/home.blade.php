@@ -1,8 +1,17 @@
 <div>
     <!DOCTYPE html>
     <html lang="en">
-    
-   
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quản Lý Môn Học - Hệ Thống Quản Lý Môn Học MKT</title>
+        <meta name="description" content="Hệ thống quản lý môn học MKT - Nền tảng quản lý môn học trực tuyến, điểm danh và theo dõi tiến độ học tập hiệu quả">
+        <meta name="keywords" content="quản lý môn học, mkt subject, điểm danh online, quản lý khóa học, học trực tuyến">
+        <meta name="author" content="MKT Subject Management">
+        <meta property="og:title" content="Quản Lý Môn Học - Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:description" content="Hệ thống quản lý môn học MKT - Nền tảng quản lý môn học trực tuyến, điểm danh và theo dõi tiến độ học tập hiệu quả">
+        <meta property="og:type" content="website">
+    </head>
     
     <body class="rbt-header-sticky">
     

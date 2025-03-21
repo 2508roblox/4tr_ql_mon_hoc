@@ -1,4 +1,20 @@
 <div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Xác Thực Tài Khoản | Hệ Thống Quản Lý Môn Học MKT</title>
+        <meta name="description" content="Xác thực tài khoản sinh viên - Kích hoạt tài khoản mới đăng ký để truy cập hệ thống quản lý môn học MKT">
+        <meta name="keywords" content="xác thực tài khoản, kích hoạt tài khoản, xác nhận email, quản lý môn học, môn học mkt">
+        <meta name="author" content="MKT Subject Management">
+        <meta property="og:title" content="Xác Thực Tài Khoản | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:description" content="Xác thực tài khoản sinh viên - Kích hoạt tài khoản mới đăng ký để truy cập hệ thống quản lý môn học MKT">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta name="robots" content="noindex, nofollow">
+        <link rel="canonical" href="{{ url()->current() }}" />
+    </head>
     <div class="container">
         <div class="rbt-contact-form contact-form-style-1 max-width-auto mt-5 mb-5">
             <h3 class="title">Xác Thực Tài Khoản</h3>
