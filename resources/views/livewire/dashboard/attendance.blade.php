@@ -153,162 +153,37 @@
                                 <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
                                     <div class="content">
                                         <div class="section-title">
-                                            <h4 class="rbt-title-style-3">Order History</h4>
+                                            <h4 class="rbt-title-style-3">Lịch sử điểm danh</h4>
                                         </div>
     
                                         <div class="rbt-dashboard-table table-responsive mobile-table-750">
                                             <table class="rbt-table table table-borderless">
                                                 <thead>
                                                     <tr>
-                                                        <th>Order ID</th>
-                                                        <th>Course Name</th>
-                                                        <th>Date</th>
-                                                        <th>Price</th>
-                                                        <th>Status</th>
+                                                        <th>ID môn học</th>
+                                                        <th>Tên môn học</th>
+                                                        <th>Ngày điểm danh</th>
+                                                        <th>Thời gian</th>
+                                                        <th>Trạng thái</th>
                                                     </tr>
                                                 </thead>
     
                                                 <tbody>
+                                                    @foreach($attendances as $attendance)
                                                     <tr>
-                                                        <th>#5478</th>
-                                                        <td>App Development</td>
-                                                        <td>January 27, 2024</td>
-                                                        <td>$100.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-success-opacity color-success">Success</span>
+                                                        <th>#{{ $attendance->id }}</th>
+                                                        <td>{{ $attendance->course->course_name }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($attendance->date)->format('d/m/Y') }}</td>
+                                                        <td>Tuần {{ $attendance->week }}</td>
+                                                        <td>
+                                                            @if($attendance->status == 1)
+                                                                <span class="rbt-badge-5 bg-color-success-opacity color-success">Đã điểm danh</span>
+                                                            @else
+                                                                <span class="rbt-badge-5 bg-color-warning-opacity color-warning">Vắng mặt</span>
+                                                            @endif
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <th>#4585</th>
-                                                        <td>Graphic</td>
-                                                        <td>May 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span class="rbt-badge-5 bg-primary-opacity">Processing</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#9656</th>
-                                                        <td>Graphic</td>
-                                                        <td>March 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-warning-opacity color-warning">On
-                                                                Hold</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#2045</th>
-                                                        <td>Application</td>
-                                                        <td>March 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-danger-opacity color-danger">Canceled</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#5478</th>
-                                                        <td>App Development</td>
-                                                        <td>January 27, 2024</td>
-                                                        <td>$100.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-success-opacity color-success">Success</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#4585</th>
-                                                        <td>Graphic</td>
-                                                        <td>May 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span class="rbt-badge-5 bg-primary-opacity">Processing</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#9656</th>
-                                                        <td>Graphic</td>
-                                                        <td>March 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-warning-opacity color-warning">On
-                                                                Hold</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#2045</th>
-                                                        <td>Application</td>
-                                                        <td>March 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-danger-opacity color-danger">Canceled</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#5478</th>
-                                                        <td>App Development</td>
-                                                        <td>January 27, 2024</td>
-                                                        <td>$100.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-success-opacity color-success">Success</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#4585</th>
-                                                        <td>Graphic</td>
-                                                        <td>May 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span class="rbt-badge-5 bg-primary-opacity">Processing</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#9656</th>
-                                                        <td>Graphic</td>
-                                                        <td>March 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-warning-opacity color-warning">On
-                                                                Hold</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#2045</th>
-                                                        <td>Application</td>
-                                                        <td>March 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-danger-opacity color-danger">Canceled</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#5478</th>
-                                                        <td>App Development</td>
-                                                        <td>January 27, 2024</td>
-                                                        <td>$100.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-success-opacity color-success">Success</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#4585</th>
-                                                        <td>Graphic</td>
-                                                        <td>May 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span class="rbt-badge-5 bg-primary-opacity">Processing</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#9656</th>
-                                                        <td>Graphic</td>
-                                                        <td>March 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-warning-opacity color-warning">On
-                                                                Hold</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>#2045</th>
-                                                        <td>Application</td>
-                                                        <td>March 27, 2024</td>
-                                                        <td>$200.99</td>
-                                                        <td><span
-                                                                class="rbt-badge-5 bg-color-danger-opacity color-danger">Canceled</span>
-                                                        </td>
-                                                    </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>

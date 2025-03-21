@@ -13,6 +13,12 @@ class VerifyAccount extends Component
     public function mount()
     {
         $this->email = request()->query('email', '');
+        $this->code_input = request()->query('code', '');
+        
+        // Nếu có cả email và code, tự động xác thực
+        if ($this->email && $this->code_input) {
+            $this->verify();
+        }
     }
 
     public function verify()

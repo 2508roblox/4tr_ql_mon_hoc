@@ -7,12 +7,12 @@
                         <div class="footer-widget">
                             <div class="logo logo-dark">
                                 <a href="index.html">
-                                    <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Edu-cause">
+                                    <img src="/assets/z6429180696238_5adc3943dfcf04e61e3e33b9cfe39ea9-removebg-preview (1).png" alt="Edu-cause">
                                 </a>
                             </div>
                             <div class="logo d-none logo-light">
                                 <a href="index.html">
-                                    <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Edu-cause">
+                                    <img src="/assets/dark-logo.png" alt="Edu-cause">
                                 </a>
                             </div>
                         

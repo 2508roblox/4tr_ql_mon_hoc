@@ -73,9 +73,29 @@ class AuthForm extends Component
         }
 
         if (!$student->email_verified_at) {
-            session()->flash('error', 'Tài khoản chưa được xác thực.');
+            // Tạo mã xác thực mới
+            $verification_code = Str::random(6);
+            $student->verification_code = $verification_code;
+            $student->save();
+
+            // Tạo URL xác thực
+            $verificationUrl = route('verify', [
+                'email' => $this->login_email,
+                'code' => $verification_code
+            ]);
+
+            // Gửi email xác thực
+            Mail::send('emails.verify-email', [
+                'user' => $student,
+                'verificationUrl' => $verificationUrl
+            ], function ($message) {
+                $message->to($this->login_email)
+                       ->subject('Xác thực tài khoản - ' . config('app.name'));
+            });
+
             $this->isLoginLoading = false;
-            return;
+            session()->flash('message', 'Email xác thực đã được gửi lại.');
+            return redirect()->route('verify', ['email' => $this->login_email]);
         }
 
         Auth::guard('student')->attempt(['email' => $this->login_email, 'password' => $this->login_password], $this->remember_me);

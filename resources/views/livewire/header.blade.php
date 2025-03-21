@@ -9,13 +9,13 @@
                     <div class="header-left">
                         <div class="logo logo-dark">
                             <a href="{{ route('home') }}">
-                                <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Logo Giáo Dục">
+                                <img src="/assets/z6429180696238_5adc3943dfcf04e61e3e33b9cfe39ea9-removebg-preview (1).png" alt="Logo Giáo Dục">
                             </a>
                         </div>
         
                         <div class="logo d-none logo-light">
                             <a href="{{ route('home') }}">
-                                <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Logo Giáo Dục">
+                                <img src="/assets/dark-logo.png" alt="Logo Giáo Dục">
                             </a>
                         </div>
                     </div>
@@ -118,13 +118,13 @@
                     <div class="logo">
                         <div class="logo logo-dark">
                             <a href="index.html">
-                                <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Logo Quản Lý Môn Học">
+                                <img src="/assets/giang-removebg-preview.png" alt="Logo Quản Lý Môn Học">
                             </a>
                         </div>
             
                         <div class="logo d-none logo-light">
                             <a href="index.html">
-                                <img src="/assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg" alt="Logo Quản Lý Môn Học">
+                                <img src="/assets/giang-removebg-preview.png" alt="Logo Quản Lý Môn Học">
                             </a>
                         </div>
                     </div>

@@ -179,11 +179,7 @@
                                     </div>
                     
                                     <div class="rbt-author-meta mb--20">
-                                        <div class="rbt-avater">
-                                            <a href="#">
-                                                <img src="{{ $course->creator->profile_image ?? '/assets/images/client/avatar-02.png' }}" alt="{{ $course->creator->name }}">
-                                            </a>
-                                        </div>
+                                        
                                         <div class="rbt-author-info">
                                             khóa học được tạo bởi <a href="#">{{ $course->creator->name }}</a> </a>
                                         </div>
@@ -249,7 +245,7 @@
                                             </div>
                                             <div class="rbt-accordion-style rbt-accordion-02 accordion">
                                                 <div class="accordion" id="accordionExampleb2">
-                                                    @foreach($lessons as $lesson)
+                                                    @foreach($lessons->sortBy('created_at') as $lesson)
                                                     <div class="accordion-item card">
                                                         <h2 class="accordion-header card-header" id="heading{{ $lesson->id }}">
                                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $lesson->id }}" aria-expanded="true" aria-controls="collapse{{ $lesson->id }}">
@@ -612,6 +608,7 @@
                                                     <li><span>Số bài học</span><span class="rbt-feature-value rbt-badge-5">{{ $course->materials->count() }}</span></li>
                                                 
                                                     <li><span>Số lượng sinh viên</span><span class="rbt-feature-value rbt-badge-5">{{ $course->students->count() }}</span></li>
+                                                    <li><span>Giảng viên</span><span class="rbt-feature-value rbt-badge-5">{{ $course->creator->name }}</span></li>
                                                 
                                                     <li><span>Số lượng đánh giá</span><span class="rbt-feature-value rbt-badge-5">{{ $course->feedbacks->count() }}</span></li>
                                                 
@@ -646,21 +643,176 @@
                                                 <div class="contact-with-us text-center">
                                                  
             @if ($isEnrolled)
-            <button class="rbt-badge-2 mt--10 justify-content-center w-100" disabled>
-                Đã tham gia
-            </button>
-        
+            <div class="d-flex flex-column gap-2">
+                <button class="rbt-btn btn-gradient hover-icon-reverse w-100 rounded-pill" disabled>
+                    Đã tham gia
+                </button>
+                
+                <button wire:click="$set('showAttendanceModal', true)" class="rbt-btn btn-gradient hover-icon-reverse w-100 rounded-pill">
+                    <span class="icon-reverse-wrapper">
+                        <span class="btn-text">Điểm danh</span>
+                        <span class="btn-icon"><i class="feather-check-circle"></i></span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Modal Điểm danh -->
+            @if($showAttendanceModal)
+            <div class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content attendance-modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Điểm danh {{ $course->course_name }}</h5>
+                            <button type="button" class="btn-close" wire:click="$set('showAttendanceModal', false)"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                @php
+                                    $courseStartDate = \Carbon\Carbon::parse($course->created_at);
+                                    $currentDate = \Carbon\Carbon::now();
+                                @endphp
+
+                                @for ($week = 1; $week <= 12; $week++)
+                                    @php
+                                        $weekStartDate = $courseStartDate->copy()->addWeeks($week - 1);
+                                        $weekEndDate = $weekStartDate->copy()->addDays(6);
+                                        $isCurrentWeek = $currentDate->between($weekStartDate, $weekEndDate);
+                                        $isPastWeek = $currentDate->isAfter($weekEndDate);
+                                        $isFutureWeek = $currentDate->isBefore($weekStartDate);
+                                        
+                                        // Kiểm tra trạng thái điểm danh
+                                        $attendance = $attendances->where('week', $week)->first();
+                                        $hasAttended = $attendance && $attendance->status == 1;
+                                    @endphp
+
+                                    <div class="col-md-3">
+                                        <div class="card h-100 attendance-card">
+                                            <div class="card-body text-center">
+                                                <h6 class="card-title">Tuần {{ $week }}</h6>
+                                                <p class="small text-muted mb-2">
+                                                    {{ $weekStartDate->format('d/m/Y') }} - {{ $weekEndDate->format('d/m/Y') }}
+                                                </p>
+
+                                                @if($hasAttended)
+                                                    <span class="badge bg-success">Đã điểm danh</span>
+                                                @elseif($isCurrentWeek)
+                                                    <button wire:click="markAttendance({{ $week }})" 
+                                                            class="rbt-btn btn-sm btn-gradient">
+                                                        Điểm danh
+                                                    </button>
+                                                @elseif($isPastWeek)
+                                                    <span class="badge bg-danger">Vắng mặt</span>
+                                                @else
+                                                    <button class="rbt-btn btn-sm btn-gradient" disabled>
+                                                        Chưa đến hạn
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endfor
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-backdrop fade show"></div>
+
+            <style>
+                .attendance-modal {
+                    border-radius: 15px;
+                    border: none;
+                    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                }
+
+                .attendance-modal .modal-header {
+                    border-bottom: 1px solid var(--color-border);
+                    padding: 1.5rem;
+                }
+
+                .attendance-modal .modal-title {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    color: var(--color-heading);
+                }
+
+                .attendance-modal .modal-body {
+                    padding: 1.5rem;
+                }
+
+                .attendance-card {
+                    border: 1px solid var(--color-border);
+                    border-radius: 10px;
+                    transition: all 0.3s ease;
+                }
+
+                .attendance-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                }
+
+                .attendance-card .card-title {
+                    color: var(--color-heading);
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                }
+
+                .attendance-card .text-muted {
+                    color: var(--color-body) !important;
+                }
+
+                .attendance-card .badge {
+                    padding: 0.5rem 1rem;
+                    font-weight: 500;
+                }
+
+                .attendance-card .rbt-btn {
+                    padding: 0.5rem 1.5rem;
+                    font-weight: 500;
+                }
+
+                /* Dark Mode Styles */
+                .active-dark-mode .attendance-modal {
+                    background: var(--color-darker);
+                    color: var(--color-white);
+                }
+
+                .active-dark-mode .attendance-modal .modal-header {
+                    border-bottom-color: rgba(255,255,255,0.1);
+                }
+
+                .active-dark-mode .attendance-modal .modal-title {
+                    color: var(--color-white);
+                }
+
+                .active-dark-mode .attendance-card {
+                    background: var(--color-dark);
+                    border-color: rgba(255,255,255,0.1);
+                }
+
+                .active-dark-mode .attendance-card .card-title {
+                    color: var(--color-white);
+                }
+
+                .active-dark-mode .attendance-card .text-muted {
+                    color: rgba(255,255,255,0.7) !important;
+                }
+
+                .active-dark-mode .modal-backdrop {
+                    background-color: rgba(0,0,0,0.8);
+                }
+
+                .active-dark-mode .btn-close {
+                    filter: invert(1) grayscale(100%) brightness(200%);
+                }
+            </style>
+            @endif
         @else
-            <button wire:click="enrollCourse" class="rbt-badge-2 mt--10 justify-content-center w-100">
+            <button wire:click="enrollCourse" class="rbt-btn btn-gradient hover-icon-reverse w-100 rounded-pill">
                 Tham gia môn học
             </button>
         @endif
-        <p class="mt-4">Để biết thêm chi tiết về khóa học</p>
-        
-                                                    <p class="rbt-badge-2 mt--10 justify-content-center w-100">
-                                                        <i class="feather-phone mr--5"></i> Gọi ngay: 
-                                                        <a href="#"><strong>+444 555 666 777</strong></a>
-                                                    </p>
+      
                                                     
                                                     @if (session()->has('enrolled'))
                                                     <p class="text-success mt-2">{{ session('enrolled') }}</p>
@@ -685,8 +837,8 @@
                 <div class="rbt-related-course-area bg-color-white pt--60 rbt-section-gapBottom">
                     <div class="container">
                         <div class="section-title mb--30">
-                            <span class="subtitle bg-primary-opacity">More Similar Courses</span>
-                            <h4 class="title">Related Courses</h4>
+                            <span class="subtitle bg-primary-opacity">Khóa học liên quan</span>
+                            <h4 class="title">Khóa học liên quan</h4>
                         </div>
                         <div class="row g-5">
             

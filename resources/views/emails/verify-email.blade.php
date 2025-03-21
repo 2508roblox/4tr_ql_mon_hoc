@@ -101,7 +101,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{ asset('assets/z6412708570639_fda089e9c877e665675909e9d412c04a.jpg') }}" alt="Logo">
+            <img src="{{ asset('assets/giang-removebg-preview.png') }}" alt="Logo">
         </div>
         
         <div class="content">

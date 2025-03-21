@@ -11,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\MultiSelect;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -19,6 +20,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
+use Filament\Notifications\Notification;
 
 class AttendanceResource extends Resource
 {
@@ -33,6 +36,14 @@ class AttendanceResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $user = Auth::user();
+        $courseQuery = Course::query();
+        
+        // Nếu là giảng viên, chỉ hiển thị các khóa học của họ
+        if ($user->role === 'giảng viên') {
+            $courseQuery->where('created_by', $user->id);
+        }
+
         return $form
             ->schema([
                 Select::make('student_id')
@@ -43,13 +54,21 @@ class AttendanceResource extends Resource
 
                 Select::make('course_id')
                     ->label('Khóa học')
-                    ->options(Course::pluck('course_name', 'id'))
+                    ->options($courseQuery->pluck('course_name', 'id'))
                     ->searchable()
                     ->required(),
 
+                Select::make('week')
+                    ->label('Tuần')
+                    ->options(array_combine(range(1, 12), range(1, 12)))
+                    ->required()
+                    ->helperText('Tuần học từ 1-12'),
+
                 DatePicker::make('date')
                     ->label('Ngày điểm danh')
-                    ->required(),
+                    ->required()
+                    ->displayFormat('d/m/Y')
+                    ->format('Y-m-d'),
 
                 Toggle::make('status')
                     ->label('Có mặt')
@@ -62,6 +81,98 @@ class AttendanceResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->headerActions([
+            Tables\Actions\Action::make('reset_attendance')
+                ->label('Reset điểm danh cá nhân')
+                ->icon('heroicon-o-arrow-path')
+                ->form([
+                    Select::make('student_id')
+                        ->label('Sinh viên')
+                        ->options(Student::pluck('full_name', 'id'))
+                        ->searchable()
+                        ->required(),
+
+                    Select::make('course_id')
+                        ->label('Khóa học')
+                        ->options(function () {
+                            $user = Auth::user();
+                            $query = Course::query();
+                            if ($user->role === 'giảng viên') {
+                                $query->where('created_by', $user->id);
+                            }
+                            return $query->pluck('course_name', 'id');
+                        })
+                        ->searchable()
+                        ->required(),
+
+                    MultiSelect::make('weeks')
+                        ->label('Tuần cần reset')
+                        ->options(array_combine(range(1, 12), range(1, 12)))
+                        ->required()
+                        ->helperText('Chọn các tuần cần reset điểm danh'),
+                ])
+                ->action(function (array $data) {
+                    $updated = Attendance::query()
+                        ->where('student_id', $data['student_id'])
+                        ->where('course_id', $data['course_id'])
+                        ->whereIn('week', $data['weeks'])
+                        ->update(['status' => 0]);
+
+                    Notification::make()
+                        ->title('Reset điểm danh thành công')
+                        ->success()
+                        ->send();
+                })
+                ->requiresConfirmation()
+                ->modalHeading('Reset điểm danh cá nhân')
+                ->modalDescription('Bạn có chắc chắn muốn reset điểm danh cho các tuần đã chọn?')
+                ->modalSubmitActionLabel('Đồng ý')
+                ->modalCancelActionLabel('Hủy'),
+
+            Tables\Actions\Action::make('reset_course_attendance')
+                ->label('Reset điểm danh toàn khóa')
+                ->icon('heroicon-o-arrow-path-rounded-square')
+                ->color('danger')
+                ->form([
+                    Select::make('course_id')
+                        ->label('Khóa học')
+                        ->options(function () {
+                            $user = Auth::user();
+                            $query = Course::query();
+                            if ($user->role === 'giảng viên') {
+                                $query->where('created_by', $user->id);
+                            }
+                            return $query->pluck('course_name', 'id');
+                        })
+                        ->searchable()
+                        ->required(),
+
+                    MultiSelect::make('weeks')
+                        ->label('Tuần cần reset')
+                        ->options(array_combine(range(1, 12), range(1, 12)))
+                        ->required()
+                        ->helperText('Chọn các tuần cần reset điểm danh'),
+                ])
+                ->action(function (array $data) {
+                    $updated = Attendance::query()
+                        ->where('course_id', $data['course_id'])
+                        ->whereIn('week', $data['weeks'])
+                        ->update(['status' => 0]);
+
+                    $course = Course::find($data['course_id']);
+                    $weekCount = count($data['weeks']);
+
+                    Notification::make()
+                        ->title("Đã reset điểm danh {$weekCount} tuần của khóa học {$course->course_name}")
+                        ->success()
+                        ->send();
+                })
+                ->requiresConfirmation()
+                ->modalHeading('Reset điểm danh toàn khóa')
+                ->modalDescription('CẢNH BÁO: Hành động này sẽ reset điểm danh của TẤT CẢ sinh viên trong khóa học cho các tuần đã chọn!')
+                ->modalSubmitActionLabel('Đồng ý')
+                ->modalCancelActionLabel('Hủy')
+        ])
         ->columns([
             TextColumn::make('student.full_name')
                 ->label('Sinh viên')
@@ -73,12 +184,16 @@ class AttendanceResource extends Resource
                 ->sortable()
                 ->searchable(),
 
+            TextColumn::make('week')
+                ->label('Tuần')
+                ->sortable(),
+
             TextColumn::make('date')
                 ->label('Ngày điểm danh')
                 ->date('d/m/Y')
                 ->sortable(),
 
-                BadgeColumn::make('status')
+            BadgeColumn::make('status')
                 ->label('Trạng thái')
                 ->formatStateUsing(fn ($state) => $state ? 'Có mặt' : 'Vắng mặt')
                 ->color(fn ($state) => $state ? 'success' : 'danger'),
@@ -94,7 +209,15 @@ class AttendanceResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                $user = Auth::user();
+                if ($user->role === 'giảng viên') {
+                    $query->whereHas('course', function (Builder $courseQuery) use ($user) {
+                        $courseQuery->where('created_by', $user->id);
+                    });
+                }
+            });
     }
 
     public static function getRelations(): array

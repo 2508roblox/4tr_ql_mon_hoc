@@ -261,7 +261,7 @@
                                             </div>
                                             <ul class="rbt-meta">
                                                 <li><i class="feather-book"></i>{{ $course->materials()->count() }} Bài học</li>
-                                                <li><i class="feather-users"></i> {{ $course->enrollments_count }} Students</li>
+                                                <li><i class="feather-users"></i> {{ $course->enrollments_count }} Sinh viên</li>
                                             </ul>
                                         </div>
                                         <div class="rbt-card-body" style="padding-top: 0 !important;" >

@@ -18,6 +18,8 @@ class Show extends Component
     public $ratingPercentages;
     public $grades = [];
     public $gradeData = [];
+    public $showAttendanceModal = false;
+    public $attendances;
 
     public $rating = 1; // Mặc định là 5 sao
     public $understand = false;
@@ -108,6 +110,13 @@ class Show extends Component
             ->where('course_id', $this->course->id)
             ->exists();
         $this->isEnrolled = $alreadyEnrolled;
+
+        // Load attendances for current student if enrolled
+        if (Auth::guard('student')->check()) {
+            $this->attendances = \App\Models\Attendance::where('student_id', Auth::guard('student')->id())
+                ->where('course_id', $this->course->id)
+                ->get();
+        }
     }
 
     public function submitFeedback()
@@ -169,6 +178,50 @@ class Show extends Component
     {
         $this->showGradeViewer = false;
         $this->selectedGrade = null;
+    }
+
+    public function markAttendance($week)
+    {
+        if (!Auth::guard('student')->check()) {
+            return;
+        }
+
+        $courseStartDate = \Carbon\Carbon::parse($this->course->created_at);
+        $weekStartDate = $courseStartDate->copy()->addWeeks($week - 1);
+        $weekEndDate = $weekStartDate->copy()->addDays(6);
+        $currentDate = \Carbon\Carbon::now();
+
+        // Kiểm tra xem có trong tuần hiện tại không
+        if (!$currentDate->between($weekStartDate, $weekEndDate)) {
+            $this->dispatch('notify', [
+                'type' => 'error',
+                'message' => 'Bạn chỉ có thể điểm danh trong tuần hiện tại!'
+            ]);
+            return;
+        }
+
+        // Tạo hoặc cập nhật điểm danh
+        $attendance = \App\Models\Attendance::updateOrCreate(
+            [
+                'student_id' => Auth::guard('student')->id(),
+                'course_id' => $this->course->id,
+                'week' => $week,
+            ],
+            [
+                'status' => 1,
+                'date' => now(),
+            ]
+        );
+
+        // Refresh danh sách điểm danh
+        $this->attendances = \App\Models\Attendance::where('student_id', Auth::guard('student')->id())
+            ->where('course_id', $this->course->id)
+            ->get();
+
+        $this->dispatch('notify', [
+            'type' => 'success',
+            'message' => 'Điểm danh thành công!'
+        ]);
     }
 
     public function render()
