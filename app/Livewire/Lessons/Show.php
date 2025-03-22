@@ -16,6 +16,9 @@ class Show extends Component
     public $currentResource;
     public $searchQuery = '';
     public $completedResourcesCount = [];
+    public $showAttendanceModal = false;
+    public $currentWeek = 1;
+    public $courseStartDate;
 
     public function mount($lesson, $lesson_resource_id = null)
     {
@@ -36,6 +39,11 @@ class Show extends Component
 
         // Tính toán số lượng resource đã học cho từng bài học
         $this->calculateCompletedResources();
+
+        // Tính tuần hiện tại và làm tròn
+        $this->courseStartDate = \Carbon\Carbon::parse($this->course->created_at);
+        $currentDate = \Carbon\Carbon::now();
+        $this->currentWeek = ceil($this->courseStartDate->diffInWeeks($currentDate) );
     }
 
     /**
@@ -48,6 +56,7 @@ class Show extends Component
         }
 
         $studentId = Auth::guard('student')->id();
+        $allCompleted = true;
 
         foreach ($this->lessons as $lesson) {
             // Lấy tất cả resource của bài học
@@ -64,6 +73,23 @@ class Show extends Component
                 'completed' => $completedCount,
                 'total' => $totalResources
             ];
+
+            // Kiểm tra nếu có bài học chưa hoàn thành
+            if ($completedCount < $totalResources) {
+                $allCompleted = false;
+            }
+        }
+
+        // Kiểm tra xem học viên đã điểm danh tuần này chưa
+        $hasAttended = \App\Models\Attendance::where('student_id', $studentId)
+            ->where('course_id', $this->course->id)
+            ->where('week', $this->currentWeek)
+            ->where('status', 1)
+            ->exists();
+
+        // Chỉ hiển thị modal nếu tất cả bài học đã hoàn thành và chưa điểm danh
+        if ($allCompleted && !$hasAttended) {
+            $this->showAttendanceModal = true;
         }
     }
 
@@ -155,6 +181,32 @@ class Show extends Component
             ->get();
     }
 
+    public function markAttendance()
+    {
+        if (!Auth::guard('student')->check()) {
+            return;
+        }
+
+        // Tạo hoặc cập nhật điểm danh
+        $attendance = \App\Models\Attendance::updateOrCreate(
+            [
+                'student_id' => Auth::guard('student')->id(),
+                'course_id' => $this->course->id,
+                'week' => $this->currentWeek,
+            ],
+            [
+                'status' => 1,
+                'date' => now(),
+            ]
+        );
+
+        $this->showAttendanceModal = false;
+        $this->dispatch('notify', [
+            'type' => 'success',
+            'message' => 'Điểm danh thành công!'
+        ]);
+    }
+
     public function render()
     {
         return view('livewire.lessons.show', [
@@ -162,7 +214,9 @@ class Show extends Component
             'course' => $this->course,
             'lessons' => $this->lessons,
             'currentResource' => $this->currentResource,
-            'completedResourcesCount' => $this->completedResourcesCount
+            'completedResourcesCount' => $this->completedResourcesCount,
+            'showAttendanceModal' => $this->showAttendanceModal,
+            'currentWeek' => $this->currentWeek
         ]);
     }
 }

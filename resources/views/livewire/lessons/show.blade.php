@@ -319,7 +319,33 @@
                 <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
             </svg>
         </div>
-    
+
+        <!-- Modal Điểm Danh -->
+        @if($showAttendanceModal)
+        <div class="modal fade show" style="display: block; background: rgba(0,0,0,0.5);" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Điểm Danh Tuần {{ $currentWeek }}</h5>
+                        <button type="button" class="btn-close" wire:click="$set('showAttendanceModal', false)"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <i class="feather-check-circle text-success" style="font-size: 48px;"></i>
+                            <h4 class="mt-3">Chúc mừng bạn đã hoàn thành khóa học!</h4>
+                            <p class="text-muted">Bạn có thể điểm danh cho tuần {{ $currentWeek }} của môn học {{ $course->course_name }}</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="rbt-btn btn-secondary" wire:click="$set('showAttendanceModal', false)">Đóng</button>
+                        <button type="button" class="rbt-btn btn-primary" wire:click="markAttendance">
+                            <i class="feather-check"></i> Điểm Danh
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
      
     </body>
     </html>

@@ -274,28 +274,47 @@
                                                                 <ul class="rbt-course-main-content liststyle">
                                                                     @foreach($lesson->lessonResources as $resource)
                                                                     <li>
-                                                                        <a href="{{ route('lessons.show', ['lesson' => $lesson->id]) }}">
+                                                                        @if($isEnrolled && $enrollmentStatus == 1)
+                                                                            <a href="{{ route('lessons.show', ['lesson' => $lesson->id]) }}">
+                                                                                <div class="course-content-left">
+                                                                                    @php
+                                                                                    $extension = pathinfo($resource->file_path, PATHINFO_EXTENSION);
+                                                                                    @endphp
+                                                                                
+                                                                                    @if(in_array($extension, ['pdf', 'doc', 'docx', 'txt']))
+                                                                                        <i class="feather-file-text"></i>
+                                                                                    @elseif(in_array($extension, ['jpg', 'png', 'gif', 'jpeg']))
+                                                                                        <i class="feather-image"></i>
+                                                                                    @elseif(in_array($extension, ['mp4', 'mkv', 'avi']))
+                                                                                        <i class="feather-play-circle"></i>
+                                                                                    @elseif(in_array($extension, ['zip', 'rar']))
+                                                                                        <i class="feather-archive"></i>
+                                                                                    @else
+                                                                                        <i class="feather-file"></i>
+                                                                                    @endif
+                                                                                    <span class="text"> {{ $resource->name }}</span>
+                                                                                </div>
+                                                                            </a>
+                                                                        @else
                                                                             <div class="course-content-left">
-        
                                                                                 @php
                                                                                 $extension = pathinfo($resource->file_path, PATHINFO_EXTENSION);
-                                                                            @endphp
-                                                                        
-                                                                            @if(in_array($extension, ['pdf', 'doc', 'docx', 'txt']))
-                                                                                <i class="feather-file-text"></i>
-                                                                            @elseif(in_array($extension, ['jpg', 'png', 'gif', 'jpeg']))
-                                                                                <i class="feather-image"></i>
-                                                                            @elseif(in_array($extension, ['mp4', 'mkv', 'avi']))
-                                                                                <i class="feather-play-circle"></i>
-                                                                            @elseif(in_array($extension, ['zip', 'rar']))
-                                                                                <i class="feather-archive"></i>
-                                                                            @else
-                                                                                <i class="feather-file"></i>
-                                                                            @endif
+                                                                                @endphp
+                                                                            
+                                                                                @if(in_array($extension, ['pdf', 'doc', 'docx', 'txt']))
+                                                                                    <i class="feather-file-text"></i>
+                                                                                @elseif(in_array($extension, ['jpg', 'png', 'gif', 'jpeg']))
+                                                                                    <i class="feather-image"></i>
+                                                                                @elseif(in_array($extension, ['mp4', 'mkv', 'avi']))
+                                                                                    <i class="feather-play-circle"></i>
+                                                                                @elseif(in_array($extension, ['zip', 'rar']))
+                                                                                    <i class="feather-archive"></i>
+                                                                                @else
+                                                                                    <i class="feather-file"></i>
+                                                                                @endif
                                                                                 <span class="text"> {{ $resource->name }}</span>
                                                                             </div>
-                                                                          
-                                                                        </a>
+                                                                        @endif
                                                                     </li>
                                                                     @endforeach
                                                                 </ul>

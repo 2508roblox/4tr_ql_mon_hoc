@@ -1,20 +1,4 @@
 <div>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Đăng Ký & Đăng Nhập | Hệ Thống Quản Lý Môn Học MKT</title>
-        <meta name="description" content="Đăng ký và đăng nhập vào hệ thống quản lý môn học MKT - Truy cập khóa học, theo dõi tiến độ học tập và tương tác với giảng viên">
-        <meta name="keywords" content="đăng ký tài khoản, đăng nhập, quản lý môn học, học trực tuyến, môn học mkt, tài khoản sinh viên">
-        <meta name="author" content="MKT Subject Management">
-        <meta property="og:title" content="Đăng Ký & Đăng Nhập | Hệ Thống Quản Lý Môn Học MKT">
-        <meta property="og:description" content="Đăng ký và đăng nhập vào hệ thống quản lý môn học MKT - Truy cập khóa học, theo dõi tiến độ học tập và tương tác với giảng viên">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="{{ url()->current() }}">
-        <meta name="robots" content="noindex, nofollow">
-        <link rel="canonical" href="{{ url()->current() }}" />
-    </head>
     <body class="rbt-header-sticky">
 
         <div id="my_switcher" class="my_switcher">
@@ -301,5 +285,4 @@
     
       
     </body>
-    </html>
 </div>
