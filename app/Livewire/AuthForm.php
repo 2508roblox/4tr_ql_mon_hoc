@@ -37,16 +37,10 @@ class AuthForm extends Component
             'verification_code' => $this->verification_code,
         ]);
 
-        // Tạo URL xác thực
-        $verificationUrl = route('verify', [
-            'email' => $this->email,
-            'code' => $this->verification_code
-        ]);
-
         // Gửi email sử dụng template mới
         Mail::send('emails.verify-email', [
             'user' => $student,
-            'verificationUrl' => $verificationUrl
+            'verification_code' => $this->verification_code
         ], function ($message) {
             $message->to($this->email)
                    ->subject('Xác thực tài khoản - ' . config('app.name'));
@@ -73,30 +67,26 @@ class AuthForm extends Component
         }
 
         if (!$student->email_verified_at) {
-            // Tạo mã xác thực mới
-            $verification_code = Str::random(6);
-            $student->verification_code = $verification_code;
-            $student->save();
-
-            // Tạo URL xác thực
-            $verificationUrl = route('verify', [
-                'email' => $this->login_email,
-                'code' => $verification_code
-            ]);
-
-            // Gửi email xác thực
+            // Nếu chưa có mã xác minh, tạo mới
+            if (!$student->verification_code) {
+                $student->verification_code = Str::random(6);
+                $student->save();
+            }
+    
+            // Gửi email chứa mã xác minh (không gửi URL)
             Mail::send('emails.verify-email', [
                 'user' => $student,
-                'verificationUrl' => $verificationUrl
+                'verification_code' => $student->verification_code
             ], function ($message) {
                 $message->to($this->login_email)
-                       ->subject('Xác thực tài khoản - ' . config('app.name'));
+                       ->subject('Mã xác minh tài khoản - ' . config('app.name'));
             });
-
+    
             $this->isLoginLoading = false;
-            session()->flash('message', 'Email xác thực đã được gửi lại.');
+            session()->flash('message', 'Mã xác minh đã được gửi đến email của bạn.');
             return redirect()->route('verify', ['email' => $this->login_email]);
         }
+    
 
         Auth::guard('student')->attempt(['email' => $this->login_email, 'password' => $this->login_password], $this->remember_me);
 

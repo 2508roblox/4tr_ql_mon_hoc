@@ -42,33 +42,16 @@
             color: #555;
             margin-bottom: 20px;
         }
-        .button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #ff7eb3, #ff758c);
-            color: #ffffff;
-            font-size: 18px;
+        .verification-code {
+            font-size: 32px;
             font-weight: bold;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.3);
-        }
-        .button:hover {
-            background: linear-gradient(135deg, #ff758c, #ff5e7d);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 94, 125, 0.4);
-        }
-        .verification-link {
-            word-break: break-word;
-            color: #444;
-            font-size: 16px;
+            color: #0072ff;
             background: #f8f8f8;
-            padding: 12px;
-            border-radius: 6px;
+            padding: 15px;
+            border-radius: 8px;
+            letter-spacing: 5px;
+            margin: 20px 0;
             display: inline-block;
-            max-width: 90%;
-            margin-top: 10px;
         }
         .footer {
             font-size: 14px;
@@ -106,18 +89,16 @@
         
         <div class="content">
             <h2>Xác thực địa chỉ email của bạn</h2>
-            <p>Xin chào <strong>{{ $user->name }}</strong>,</p>
+            <p>Xin chào <strong>{{ $user->full_name }}</strong>,</p>
             
-            <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>MKT Subject</strong>. Để hoàn tất quá trình đăng ký, vui lòng xác thực địa chỉ email của bạn bằng cách nhấp vào nút bên dưới:</p>
+            <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>MKT Subject</strong>. Để hoàn tất quá trình đăng ký, vui lòng sử dụng mã xác thực sau:</p>
             
-            <a href="{{ $verificationUrl }}" class="button">Xác thực email</a>
+            <div class="verification-code">{{ $verification_code }}</div>
             
             <div class="divider"></div>
-
-            <p>Nếu nút trên không hoạt động, bạn có thể sao chép và dán đường link sau vào trình duyệt:</p>
-            <p class="verification-link">{{ $verificationUrl }}</p>
             
-            <p><em>Link xác thực này sẽ hết hạn sau 24 giờ.</em></p>
+            <p>Vui lòng nhập mã này vào form xác thực tài khoản.</p>
+            <p><em>Mã xác thực này sẽ hết hạn sau 24 giờ.</em></p>
             
             <p>Nếu bạn không tạo tài khoản này, vui lòng bỏ qua email này.</p>
         </div>
