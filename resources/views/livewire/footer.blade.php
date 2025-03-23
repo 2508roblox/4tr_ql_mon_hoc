@@ -2,17 +2,17 @@
     <footer class="rbt-footer footer-style-1 bg-color-white">
         <div class="footer-top">
             <div class="container">
-                <div class="row g-5">
+                <div class="row g-5" style="justify-content: space-between;">
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="footer-widget">
                             <div class="logo logo-dark">
                                 <a href="index.html">
-                                    <img src="/assets/z6429180696238_5adc3943dfcf04e61e3e33b9cfe39ea9-removebg-preview (1).png" alt="Edu-cause">
+                                    <img style="max-height: 100px;" src="/assets/web-logo-removebg-preview.png" alt="Edu-cause">
                                 </a>
                             </div>
                             <div class="logo d-none logo-light">
                                 <a href="index.html">
-                                    <img src="/assets/dark-logo.png" alt="Edu-cause">
+                                    <img style="max-height: 100px;" src="/assets/dark-logo.png" alt="Edu-cause">
                                 </a>
                             </div>
                         
@@ -47,10 +47,29 @@
                                 </a>
                             </div>
                         </div>
-                        
                     </div>
 
-                  
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget">
+                            <h4 class="widget-title" style="font-size: 24px; margin-bottom: 25px; color: #1e1e1e;">Thông tin liên hệ</h4>
+                            <div class="inner">
+                                <ul class="footer-link-list" style="list-style: none; padding: 0;">
+                                    <li style="display: flex; align-items: center; margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 8px; transition: all 0.3s ease;">
+                                        <i class="feather-phone" style="font-size: 20px; margin-right: 15px; color: #6c757d;"></i>
+                                        <span style="font-size: 16px;">
+                                            <a href="tel:0352478459" style="color: #1e1e1e; text-decoration: none; transition: color 0.3s ease;">0352478459</a>
+                                        </span>
+                                    </li>
+                                    <li style="display: flex; align-items: center; margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 8px; transition: all 0.3s ease;">
+                                        <i class="feather-facebook" style="font-size: 20px; margin-right: 15px; color: #6c757d;"></i>
+                                        <span style="font-size: 16px;">
+                                            <a href="https://www.facebook.com/hai.nam.828476" target="_blank" style="color: #1e1e1e; text-decoration: none; transition: color 0.3s ease;">hai.nam.828476</a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

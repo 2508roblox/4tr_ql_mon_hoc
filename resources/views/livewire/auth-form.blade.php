@@ -175,6 +175,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 text-end">
+                                        <a href="{{ route('forgot-password') }}" class="rbt-btn-link">Quên mật khẩu?</a>
                                     </div>
                                 </div>
                     

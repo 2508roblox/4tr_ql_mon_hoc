@@ -2,11 +2,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cài Đặt Tài Khoản | Hệ Thống Quản Lý Môn Học MKT</title>
+        <title>Cài Đặt Tài Khoản | Quản lý môn học Khoa Máy tàu biển</title>
         <meta name="description" content="Quản lý cài đặt tài khoản sinh viên - Cập nhật thông tin cá nhân, đổi mật khẩu và tùy chỉnh cài đặt tài khoản">
         <meta name="keywords" content="cài đặt tài khoản, quản lý mật khẩu, cập nhật thông tin, bảo mật tài khoản, môn học mkt">
         <meta name="author" content="MKT Subject Management">
-        <meta property="og:title" content="Cài Đặt Tài Khoản | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:title" content="Cài Đặt Tài Khoản | Quản lý môn học Khoa Máy tàu biển">
         <meta property="og:description" content="Quản lý cài đặt tài khoản sinh viên - Cập nhật thông tin cá nhân, đổi mật khẩu và tùy chỉnh cài đặt tài khoản">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">

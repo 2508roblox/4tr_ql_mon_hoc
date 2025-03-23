@@ -4,11 +4,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Đánh Giá Môn Học | Hệ Thống Quản Lý Môn Học MKT</title>
+        <title>Đánh Giá Môn Học | Quản lý môn học Khoa Máy tàu biển</title>
         <meta name="description" content="Xem và quản lý đánh giá môn học - Chia sẻ trải nghiệm học tập, đánh giá chất lượng giảng dạy và nội dung môn học">
         <meta name="keywords" content="đánh giá môn học, phản hồi khóa học, đánh giá giảng dạy, quản lý môn học, môn học mkt">
         <meta name="author" content="MKT Subject Management">
-        <meta property="og:title" content="Đánh Giá Môn Học | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:title" content="Đánh Giá Môn Học | Quản lý môn học Khoa Máy tàu biển">
         <meta property="og:description" content="Xem và quản lý đánh giá môn học - Chia sẻ trải nghiệm học tập, đánh giá chất lượng giảng dạy và nội dung môn học">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">

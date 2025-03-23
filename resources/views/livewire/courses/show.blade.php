@@ -4,11 +4,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ $course->course_name }} - Hệ Thống Quản Lý Môn Học MKT</title>
+        <title>{{ $course->course_name }} - Quản lý môn học Khoa Máy tàu biển</title>
         <meta name="description" content="{{ Str::limit(strip_tags($course->short_description), 160) }} - Khám phá chi tiết môn học {{ $course->course_name }} tại MKT">
         <meta name="keywords" content="{{ $course->course_name }}, môn học mkt, học online, {{ $course->creator->name }}, quản lý môn học">
         <meta name="author" content="MKT Subject Management">
-        <meta property="og:title" content="{{ $course->course_name }} - Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:title" content="{{ $course->course_name }} - Quản lý môn học Khoa Máy tàu biển">
         <meta property="og:description" content="{{ Str::limit(strip_tags($course->short_description), 160) }} - Khám phá chi tiết môn học {{ $course->course_name }} tại MKT">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">
@@ -20,7 +20,7 @@
         <div>
             <body>
         
-                <div id="my_switcher" class="my_switcher">
+                <div id="my_switcher" class="my_switcher" wire:ignore>
                     <ul>
                         <li>
                             <a href="javascript: void(0);" data-theme="light" class="setColor light">
@@ -225,7 +225,7 @@
                                     </div>
                                     
             
-                                    <div class="rbt-inner-onepage-navigation sticky-top mt--30">
+                                    <div class="rbt-inner-onepage-navigation sticky-top mt--30" wire:ignore>
                                         <nav class="mainmenu-nav onepagenav">
                                             <ul class="mainmenu">
                                                 <li class="current">
@@ -387,7 +387,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="rating-box">
                                                         <div class="rating-number">{{ number_format($averageRating, 1) }}</div>
-                                                        <div class="rating">
+                                                        <div class="rating" style="justify-content: center">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                                                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                                             </svg>
@@ -429,7 +429,7 @@
                                                                 </svg>
                                                             </div>
                                                             <div class="progress">
-                                                                <div class="progress-bar" role="progressbar" style="width: 63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                <div class="progress-bar" role="progressbar" style="width: {{$ratingPercentages[5]}}%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
                                                             </div>
                                                             <span class="value-text">{{$ratingPercentages[5]}}%</span>
                                                         </div>
@@ -442,16 +442,45 @@
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                                                                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                                                 </svg>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                                </svg>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                                </svg>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
                                                                     <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
                                                                 </svg>
                                                             </div>
                                                             <div class="progress">
-                                                                <div class="progress-bar" role="progressbar" style="width: 29%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                <div class="progress-bar" role="progressbar" style="width: {{$ratingPercentages[4]}}%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100"></div>
                                                             </div>
                                                             <span class="value-text">{{$ratingPercentages[4]}}%</span>
                                                         </div>
             
+                                                        <div class="single-progress-bar">
+                                                            <div class="rating-text">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                                </svg>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                                </svg>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                                                </svg>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                                </svg>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar" role="progressbar" style="width: {{$ratingPercentages[3]}}%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                            <span class="value-text">{{$ratingPercentages[3]}}%</span>
+                                                        </div>
                                                         <div class="single-progress-bar">
                                                             <div class="rating-text">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -471,7 +500,7 @@
                                                                 </svg>
                                                             </div>
                                                             <div class="progress">
-                                                                <div class="progress-bar" role="progressbar" style="width: 1%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                <div class="progress-bar" role="progressbar" style="width: {{$ratingPercentages[2]}}%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
                                                             </div>
                                                             <span class="value-text">{{$ratingPercentages[2]}}%</span>
                                                         </div>
@@ -490,9 +519,12 @@
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
                                                                     <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
                                                                 </svg>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                                                                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                                                </svg>
                                                             </div>
                                                             <div class="progress">
-                                                                <div class="progress-bar" role="progressbar" style="width: 1%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                <div class="progress-bar" role="progressbar" style="width: {{$ratingPercentages[1]}}%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
                                                             </div>
                                                             <span class="value-text">{{$ratingPercentages[1]}}%</span>
                                                         </div>
@@ -502,8 +534,8 @@
                                         </div>
                                     </div>
                                     <!-- End Edu Review List  -->
-                                    @if(auth('student')->check())
-                                    <div class="feedback-form about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
+                                    @if(auth('student')->check() && $isEnrolled && $enrollmentStatus == 1)
+                                    <div class="feedback-form about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more" wire:ignore.self>
                                         <h3>Đánh giá môn học</h3>
                                 
                                         {{-- Hiển thị thông báo sau khi gửi --}}
@@ -544,13 +576,20 @@
                                                 @endfor
                                             </div>
                                         
-                                            <div class="form-group">
-                                                <input type="checkbox" id="understand" wire:model="understand">
-                                                <label for="understand">Tôi đã hiểu bài</label>
+                                            <div class="form-group d-flex gap-4">
+                                                <div>
+                                                    <input type="radio" name="understand" id="understand" wire:model="understand" value="1">
+                                                    <label for="understand">Tôi đã hiểu bài</label>
+                                                </div>
+                                                
+                                                <div>
+                                                    <input type="radio" name="understand" id="not_understand" wire:model="understand" value="0">
+                                                    <label for="not_understand">Tôi chưa hiểu bài</label>
+                                                </div>
                                             </div>
                                         
                                             <div class=" ">
-                                                <textarea id="comment" cols="20" rows="5" wire:model="comment" placeholder="Bình luận:" class="form-control"></textarea>
+                                                <textarea id="comment" cols="20" rows="5" wire:model="comment" placeholder="Góp ý xây dựng môn học:" class="form-control"></textarea>
                                            <style>
                                                 textarea {
                                                     width: 100%;

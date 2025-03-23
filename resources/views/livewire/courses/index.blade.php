@@ -4,11 +4,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Danh Sách Môn Học - Hệ Thống Quản Lý Môn Học MKT</title>
+        <title>Danh Sách Môn Học - Quản lý môn học Khoa Máy tàu biển</title>
         <meta name="description" content="Xem danh sách đầy đủ các môn học trực tuyến tại MKT. Khám phá các khóa học chất lượng, đa dạng lĩnh vực và phù hợp với nhu cầu học tập của bạn">
         <meta name="keywords" content="danh sách môn học, khóa học trực tuyến, môn học mkt, học online, quản lý môn học">
         <meta name="author" content="MKT Subject Management">
-        <meta property="og:title" content="Danh Sách Môn Học - Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:title" content="Danh Sách Môn Học - Quản lý môn học Khoa Máy tàu biển">
         <meta property="og:description" content="Xem danh sách đầy đủ các môn học trực tuyến tại MKT. Khám phá các khóa học chất lượng, đa dạng lĩnh vực và phù hợp với nhu cầu học tập của bạn">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">

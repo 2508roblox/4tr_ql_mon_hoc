@@ -4,11 +4,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ $lesson->title }} - {{ $course->course_name }} | Hệ Thống Quản Lý Môn Học MKT</title>
+        <title>{{ $lesson->title }} - {{ $course->course_name }} | Quản lý môn học Khoa Máy tàu biển</title>
         <meta name="description" content="Học {{ $lesson->title }} trong khóa học {{ $course->course_name }}. Khám phá nội dung chi tiết, tài liệu học tập và bài tập thực hành">
         <meta name="keywords" content="{{ $lesson->title }}, {{ $course->course_name }}, bài học trực tuyến, học online, {{ $course->creator->name }}, môn học mkt">
         <meta name="author" content="MKT Subject Management">
-        <meta property="og:title" content="{{ $lesson->title }} - {{ $course->course_name }} | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:title" content="{{ $lesson->title }} - {{ $course->course_name }} | Quản lý môn học Khoa Máy tàu biển">
         <meta property="og:description" content="Học {{ $lesson->title }} trong khóa học {{ $course->course_name }}. Khám phá nội dung chi tiết, tài liệu học tập và bài tập thực hành">
         <meta property="og:type" content="article">
         <meta property="og:url" content="{{ url()->current() }}">

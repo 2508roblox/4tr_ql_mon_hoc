@@ -4,11 +4,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Thông Tin Cá Nhân | Hệ Thống Quản Lý Môn Học MKT</title>
+        <title>Thông Tin Cá Nhân | Quản lý môn học Khoa Máy tàu biển</title>
         <meta name="description" content="Xem và quản lý thông tin cá nhân sinh viên - Cập nhật thông tin, theo dõi tiến độ học tập và lịch sử tham gia khóa học">
         <meta name="keywords" content="thông tin sinh viên, hồ sơ cá nhân, quản lý môn học, theo dõi học tập, môn học mkt">
         <meta name="author" content="MKT Subject Management">
-        <meta property="og:title" content="Thông Tin Cá Nhân | Hệ Thống Quản Lý Môn Học MKT">
+        <meta property="og:title" content="Thông Tin Cá Nhân | Quản lý môn học Khoa Máy tàu biển">
         <meta property="og:description" content="Xem và quản lý thông tin cá nhân sinh viên - Cập nhật thông tin, theo dõi tiến độ học tập và lịch sử tham gia khóa học">
         <meta property="og:type" content="profile">
         <meta property="og:url" content="{{ url()->current() }}">
@@ -167,85 +167,162 @@
                                 <!-- Start Instructor Profile  -->
                                 <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
                                     <div class="content">
-                                        <div class="section-title">
-                                            <h4 class="rbt-title-style-3">Thông tin cá nhân</h4>
+                                        <!-- Start Tab Navigation -->
+                                        <div class="rbt-tab-wrapper mb-4" wire:ignore>
+                                            <ul class="nav nav-tabs" id="profile-tab" role="tablist" style="border-bottom: 1px solid #e6e6e6;">
+                                                <li class="nav-item" role="presentation" style="margin-right: 20px;">
+                                                    <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true" style="font-weight: 600; color: #1e1e1e; border: none; padding: 15px 0; position: relative; background: none;">
+                                                        Thông tin cá nhân
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab" aria-controls="password" aria-selected="false" style="font-weight: 600; color: #1e1e1e; border: none; padding: 15px 0; position: relative; background: none;">
+                                                        Đổi mật khẩu
+                                                    </button>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Ngày đăng ký</div>
+                                        <!-- End Tab Navigation -->
+
+                                        <style>
+                                            .nav-tabs .nav-link.active {
+                                                color: #2b70fa !important;
+                                                background: none !important;
+                                                border: none !important;
+                                            }
+                                            .nav-tabs .nav-link.active::after {
+                                                content: '';
+                                                position: absolute;
+                                                bottom: -1px;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 2px;
+                                                background-color: #2b70fa;
+                                            }
+                                            .nav-tabs .nav-link:hover {
+                                                color: #2b70fa !important;
+                                                background: none !important;
+                                                border: none !important;
+                                            }
+                                        </style>
+
+                                        <!-- Start Tab Content -->
+                                        <div class="tab-content" id="profile-tabContent" wire:ignore.self>
+                                            <!-- Start Profile Tab -->
+                                            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab" wire:ignore.self>
+                                                <!-- Start Profile Row  -->
+                                                <div class="rbt-profile-row row row--15">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="rbt-profile-content b2">Ngày đăng ký</div>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <div class="rbt-profile-content b2">{{ $student->created_at->format('d/m/Y H:i') }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Profile Row  -->
+
+                                                <!-- Start Profile Row  -->
+                                                <div class="rbt-profile-row row row--15 mt--15">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="rbt-profile-content b2">Mã sinh viên</div>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <div class="rbt-profile-content b2">{{ $student->student_id }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Profile Row  -->
+
+                                                <!-- Start Profile Row  -->
+                                                <div class="rbt-profile-row row row--15 mt--15">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="rbt-profile-content b2">Họ và tên</div>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <div class="rbt-profile-content b2">{{ $student->full_name }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Profile Row  -->
+
+                                                <!-- Start Profile Row  -->
+                                                <div class="rbt-profile-row row row--15 mt--15">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="rbt-profile-content b2">Email</div>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <div class="rbt-profile-content b2">{{ $student->email }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Profile Row  -->
+
+                                                <!-- Start Profile Row  -->
+                                                <div class="rbt-profile-row row row--15 mt--15">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="rbt-profile-content b2">Số khóa học đã đăng ký</div>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <div class="rbt-profile-content b2">{{ $student->enrollments->count() }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Profile Row  -->
+
+                                                <!-- Start Profile Row  -->
+                                                <div class="rbt-profile-row row row--15 mt--15">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="rbt-profile-content b2">Số bài học đã hoàn thành</div>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <div class="rbt-profile-content b2">{{ $student->learningHistories->where('is_completed', true)->count() }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Profile Row  -->
+
+                                                <!-- Start Profile Row  -->
+                                                <div class="rbt-profile-row row row--15 mt--15">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <div class="rbt-profile-content b2">Số lần điểm danh</div>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <div class="rbt-profile-content b2">{{ $student->attendances->where('status', 'present')->count() }}</div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Profile Row  -->
                                             </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->created_at->format('d/m/Y H:i') }}</div>
+                                            <!-- End Profile Tab -->
+
+                                            <!-- Start Password Tab -->
+                                            <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab" wire:ignore.self>
+                                                <form wire:submit="updatePassword" class="rbt-profile-row rbt-default-form row row--15">
+                                                    <div class="col-12">
+                                                        <div class="rbt-form-group">
+                                                            <label for="current_password">Mật khẩu hiện tại</label>
+                                                            <input id="current_password" type="password" wire:model="current_password" required>
+                                                            @error('current_password') <span class="text-danger">{{ $message }}</span> @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="rbt-form-group">
+                                                            <label for="new_password">Mật khẩu mới</label>
+                                                            <input id="new_password" type="password" wire:model="new_password" required>
+                                                            @error('new_password') <span class="text-danger">{{ $message }}</span> @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="rbt-form-group">
+                                                            <label for="confirm_password">Xác nhận mật khẩu mới</label>
+                                                            <input id="confirm_password" type="password" wire:model="confirm_password" required>
+                                                            @error('confirm_password') <span class="text-danger">{{ $message }}</span> @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 mt--10">
+                                                        <div class="rbt-form-group">
+                                                            <button type="submit" class="rbt-btn btn-gradient">Cập nhật mật khẩu</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
+                                            <!-- End Password Tab -->
                                         </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Mã sinh viên</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->student_id }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Họ và tên</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->full_name }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Email</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->email }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Số khóa học đã đăng ký</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->enrollments->count() }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Số bài học đã hoàn thành</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->learningHistories->where('is_completed', true)->count() }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
-    
-                                        <!-- Start Profile Row  -->
-                                        <div class="rbt-profile-row row row--15 mt--15">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="rbt-profile-content b2">Số lần điểm danh</div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8">
-                                                <div class="rbt-profile-content b2">{{ $student->attendances->where('status', 'present')->count() }}</div>
-                                            </div>
-                                        </div>
-                                        <!-- End Profile Row  -->
+                                        <!-- End Tab Content -->
                                     </div>
                                 </div>
                                 <!-- End Instructor Profile  -->

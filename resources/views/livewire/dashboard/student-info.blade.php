@@ -5,7 +5,7 @@
         <div class="rbt-tutor-information">
             <div class="rbt-tutor-information-left">
                 <div class="thumbnail rbt-avatars size-lg">
-                    <img src="/assets/2afdbc3aab8c8b066d95f812f91df33e.jpg" alt="Instructor">
+                    <img src="/assets/480487352_644969694738288_5747806059476593536_n.jpg" alt="Instructor" style="max-height: 120px;object-fit: contain;" class="rounded-circle">
                 </div>
                 <div class="tutor-content">
                     <h5 class="title">{{ $student->full_name }}</h5>

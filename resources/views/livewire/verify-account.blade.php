@@ -4,12 +4,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Xác Thực Tài Khoản | Hệ Thống Quản Lý Môn Học MKT</title>
-        <meta name="description" content="Xác thực tài khoản sinh viên - Kích hoạt tài khoản mới đăng ký để truy cập hệ thống quản lý môn học MKT">
+        <title>Xác Thực Tài Khoản | Quản lý môn học Khoa Máy tàu biển</title>
+        <meta name="description" content="Xác thực tài khoản sinh viên - Kích hoạt tài khoản mới đăng ký để truy cập Quản lý môn học Khoa Máy tàu biển">
         <meta name="keywords" content="xác thực tài khoản, kích hoạt tài khoản, xác nhận email, quản lý môn học, môn học mkt">
         <meta name="author" content="MKT Subject Management">
-        <meta property="og:title" content="Xác Thực Tài Khoản | Hệ Thống Quản Lý Môn Học MKT">
-        <meta property="og:description" content="Xác thực tài khoản sinh viên - Kích hoạt tài khoản mới đăng ký để truy cập hệ thống quản lý môn học MKT">
+        <meta property="og:title" content="Xác Thực Tài Khoản | Quản lý môn học Khoa Máy tàu biển">
+        <meta property="og:description" content="Xác thực tài khoản sinh viên - Kích hoạt tài khoản mới đăng ký để truy cập Quản lý môn học Khoa Máy tàu biển">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta name="robots" content="noindex, nofollow">
