@@ -48,7 +48,16 @@ class AttendanceResource extends Resource
             ->schema([
                 Select::make('student_id')
                     ->label('Sinh viên')
-                    ->options(Student::pluck('full_name', 'id'))
+                    ->options(function () use ($user) {
+                        if ($user->role === 'giảng viên') {
+                            // Lấy danh sách sinh viên đã đăng ký các khóa học của giảng viên
+                            $courseIds = Course::where('created_by', $user->id)->pluck('id');
+                            return Student::whereHas('enrollments', function ($query) use ($courseIds) {
+                                $query->whereIn('course_id', $courseIds);
+                            })->pluck('full_name', 'id');
+                        }
+                        return Student::pluck('full_name', 'id');
+                    })
                     ->searchable()
                     ->required(),
 
@@ -56,13 +65,19 @@ class AttendanceResource extends Resource
                     ->label('Khóa học')
                     ->options($courseQuery->pluck('course_name', 'id'))
                     ->searchable()
-                    ->required(),
+                    ->required()
+                    ->afterStateUpdated(function ($state, $set) use ($user) {
+                        if ($user->role === 'giảng viên') {
+                            // Reset student_id khi đổi khóa học
+                            $set('student_id', null);
+                        }
+                    }),
 
                 Select::make('week')
                     ->label('Tuần')
-                    ->options(array_combine(range(1, 12), range(1, 12)))
+                    ->options(array_combine(range(1, 20), range(1, 20)))
                     ->required()
-                    ->helperText('Tuần học từ 1-12'),
+                    ->helperText('Tuần học từ 1-20'),
 
                 DatePicker::make('date')
                     ->label('Ngày điểm danh')
@@ -88,7 +103,16 @@ class AttendanceResource extends Resource
                 ->form([
                     Select::make('student_id')
                         ->label('Sinh viên')
-                        ->options(Student::pluck('full_name', 'id'))
+                        ->options(function () {
+                            $user = Auth::user();
+                            if ($user->role === 'giảng viên') {
+                                $courseIds = Course::where('created_by', $user->id)->pluck('id');
+                                return Student::whereHas('enrollments', function ($query) use ($courseIds) {
+                                    $query->whereIn('course_id', $courseIds);
+                                })->pluck('full_name', 'id');
+                            }
+                            return Student::pluck('full_name', 'id');
+                        })
                         ->searchable()
                         ->required(),
 
@@ -107,11 +131,25 @@ class AttendanceResource extends Resource
 
                     MultiSelect::make('weeks')
                         ->label('Tuần cần reset')
-                        ->options(array_combine(range(1, 12), range(1, 12)))
+                        ->options(array_combine(range(1, 20), range(1, 20)))
                         ->required()
                         ->helperText('Chọn các tuần cần reset điểm danh'),
                 ])
                 ->action(function (array $data) {
+                    $user = Auth::user();
+                    if ($user->role === 'giảng viên') {
+                        // Kiểm tra xem sinh viên có đăng ký khóa học của giảng viên không
+                        $course = Course::find($data['course_id']);
+                        if (!$course || $course->created_by !== $user->id || !$course->hasEnrolledStudent($data['student_id'])) {
+                            Notification::make()
+                                ->title('Lỗi')
+                                ->body('Bạn không có quyền reset điểm danh cho sinh viên này')
+                                ->danger()
+                                ->send();
+                            return;
+                        }
+                    }
+
                     $updated = Attendance::query()
                         ->where('student_id', $data['student_id'])
                         ->where('course_id', $data['course_id'])
@@ -149,11 +187,25 @@ class AttendanceResource extends Resource
 
                     MultiSelect::make('weeks')
                         ->label('Tuần cần reset')
-                        ->options(array_combine(range(1, 12), range(1, 12)))
+                        ->options(array_combine(range(1, 20), range(1, 20)))
                         ->required()
                         ->helperText('Chọn các tuần cần reset điểm danh'),
                 ])
                 ->action(function (array $data) {
+                    $user = Auth::user();
+                    if ($user->role === 'giảng viên') {
+                        // Kiểm tra xem khóa học có thuộc về giảng viên không
+                        $course = Course::find($data['course_id']);
+                        if (!$course || $course->created_by !== $user->id) {
+                            Notification::make()
+                                ->title('Lỗi')
+                                ->body('Bạn không có quyền reset điểm danh cho khóa học này')
+                                ->danger()
+                                ->send();
+                            return;
+                        }
+                    }
+
                     $updated = Attendance::query()
                         ->where('course_id', $data['course_id'])
                         ->whereIn('week', $data['weeks'])
@@ -203,7 +255,30 @@ class AttendanceResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(function () {
+                        $user = Auth::user();
+                        if ($user->role === 'giảng viên') {
+                            return true;
+                        }
+                        return true;
+                    })
+                    ->before(function ($record, $data) {
+                        $user = Auth::user();
+                        if ($user->role === 'giảng viên') {
+                            // Kiểm tra xem sinh viên có đăng ký khóa học của giảng viên không
+                            $course = Course::find($record->course_id);
+                            if (!$course || $course->created_by !== $user->id || !$course->hasEnrolledStudent($record->student_id)) {
+                                Notification::make()
+                                    ->title('Lỗi')
+                                    ->body('Bạn không có quyền chỉnh sửa điểm danh cho sinh viên này')
+                                    ->danger()
+                                    ->send();
+                                return false;
+                            }
+                        }
+                        return true;
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

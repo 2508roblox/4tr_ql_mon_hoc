@@ -53,4 +53,9 @@ class Course extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function hasEnrolledStudent($studentId)
+    {
+        return $this->enrollments()->where('student_id', $studentId)->exists();
+    }
 }

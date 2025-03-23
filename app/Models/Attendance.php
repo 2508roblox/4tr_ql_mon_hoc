@@ -12,14 +12,14 @@ class Attendance extends Model
     protected $fillable = ['student_id', 'course_id', 'week', 'status', 'date'];
     protected $table = 'attendance';
 
-    // Đảm bảo week chỉ từ 1-12
+    // Đảm bảo week chỉ từ 1-20
     protected static function boot()
     {
         parent::boot();
         
         static::saving(function ($attendance) {
-            if ($attendance->week < 1 || $attendance->week > 12) {
-                throw new \Exception('Tuần học phải từ 1 đến 12');
+            if ($attendance->week < 1 || $attendance->week > 20) {
+                throw new \Exception('Tuần học phải từ 1 đến 20');
             }
         });
     }

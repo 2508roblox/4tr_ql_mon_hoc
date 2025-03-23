@@ -750,7 +750,7 @@
                                     $currentDate = \Carbon\Carbon::now();
                                 @endphp
 
-                                @for ($week = 1; $week <= 12; $week++)
+                                @for ($week = 1; $week <= 20; $week++)
                                     @php
                                         $weekStartDate = $courseStartDate->copy()->addWeeks($week - 1);
                                         $weekEndDate = $weekStartDate->copy()->addDays(6);
