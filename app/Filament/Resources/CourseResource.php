@@ -139,6 +139,36 @@ class CourseResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('clone')
+                    ->label('Sao chép')
+                    ->icon('heroicon-o-document-duplicate')
+                    ->action(function (Course $record) {
+                        // Tạo bản sao của khóa học
+                        $newCourse = $record->replicate();
+                        $newCourse->course_name = $record->course_name . ' (Bản sao)';
+                        $newCourse->slug = $record->slug . '-' . uniqid();
+                        $newCourse->save();
+
+                        // Sao chép materials
+                        foreach ($record->materials as $material) {
+                            $newMaterial = $material->replicate();
+                            $newMaterial->course_id = $newCourse->id;
+                            $newMaterial->slug = $material->slug . '-' . uniqid();
+                            $newMaterial->save();
+
+                            // Sao chép lesson resources
+                            foreach ($material->lessonResources as $resource) {
+                                $newResource = $resource->replicate();
+                                $newResource->material_id = $newMaterial->id;
+                                $newResource->save();
+                            }
+                        }
+
+                        Notification::make()
+                            ->title('Sao chép môn học thành công')
+                            ->success()
+                            ->send();
+                    }),
                 Tables\Actions\Action::make('view_students')
                     ->label('Xem sinh viên')
                     ->icon('heroicon-o-users')
@@ -149,7 +179,6 @@ class CourseResource extends Resource
                     ))
                     ->modalSubmitAction(false)
                     ->modalCancelActionLabel('Đóng'),
-               
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

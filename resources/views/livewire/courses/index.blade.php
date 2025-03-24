@@ -290,7 +290,7 @@
 
             <ul class="rbt-meta">
                 <li><i class="feather-book"></i> {{ $course->materials()->count() }} Bài học</li>
-                <li><i class="feather-users"></i> {{ $course->students_count }} Học viên</li>
+                <li><i class="feather-users"></i> {{ $course->enrollments()->where('status', 1)->count() }} Học viên</li>
             </ul>
 
             <p class="rbt-card-text"> {!! Str::limit(strip_tags($course->short_description), 100, '...') !!}</p>

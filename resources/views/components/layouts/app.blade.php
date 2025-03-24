@@ -9,8 +9,7 @@
     
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
-    
-        <!-- CSS
+         <!-- CSS
         ============================================ -->
         <link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/vendor/slick.css">
@@ -59,7 +58,7 @@
         @livewireStyles
         @stack('styles')
     </head>
-    <body class="active-dark-mode">
+    <body class=" ">
         @livewire('header')
         {{ $slot }}
         @livewire('footer')

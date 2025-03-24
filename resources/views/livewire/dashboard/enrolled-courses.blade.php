@@ -175,11 +175,11 @@
                                             <h4 class="rbt-title-style-3">Danh sách môn học</h4>
                                         </div>
     
-                                        <div class="advance-tab-button mb--30">
+                                        <div class="advance-tab-button mb--30" wire:ignore>
                                             <ul class="nav nav-tabs tab-button-style-2 justify-content-start" id="myTab-4" role="tablist">
                                                 <li role="presentation">
                                                     <a href="#" class="tab-button active" id="home-tab-4" data-bs-toggle="tab" data-bs-target="#home-4" role="tab" aria-controls="home-4" aria-selected="true">
-                                                        <span class="title">Môn học đã tham gia</span>
+                                                        <span class="title">Môn học đang học</span>
                                                     </a>
                                                 </li>
                                                 <li role="presentation">
@@ -187,15 +187,20 @@
                                                         <span class="title">Môn học đã hoàn thành</span>
                                                     </a>
                                                 </li>
+                                                <li role="presentation">
+                                                    <a href="#" class="tab-button" id="register-tab-4" data-bs-toggle="tab" data-bs-target="#register-4" role="tab" aria-controls="register-4" aria-selected="false">
+                                                        <span class="title">Đăng ký môn học</span>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
     
-                                        <div class="tab-content">
+                                        <div class="tab-content" >
                                             <div class="tab-pane fade active show" id="home-4" role="tabpanel" aria-labelledby="home-tab-4">
                                                 <div class="row g-5">
-                                                    @forelse($enrolledCourses as $course)
+                                                    @forelse($activeCourses as $course)
                                                         <!-- Start Single Course  -->
-                                                        <div class="col-lg-6 col-md-6 col-12">
+                                                        <div class="col-lg-6 col-md-6 col-12" wire:key="active-course-{{ $course->id }}">
                                                             <div class="rbt-card variation-01 rbt-hover">
                                                                 <div class="rbt-card-img">
                                                                     <a href="{{ route('courses.show', ['slug' => $course->slug]) }}">
@@ -221,7 +226,7 @@
                                                                     </h4>
                                                                     <ul class="rbt-meta">
                                                                         <li><i class="feather-book"></i>{{ $course->materials->count() }} Bài học</li>
-                                                                        <li><i class="feather-users"></i>{{ $course->enrollments->count() }} Học viên</li>
+                                                                        <li><i class="feather-users"></i>{{ $course->enrollments()->where('status', 1)->count() }} Học viên</li>
                                                                     </ul>
 
                                                                     <div class="rbt-progress-style-1 mb--20 mt--10">
@@ -253,11 +258,11 @@
                                                 <div class="row g-5">
                                                     @forelse($completedCourses as $course)
                                                         <!-- Start Single Course  -->
-                                                        <div class="col-lg-4 col-md-6 col-12">
+                                                        <div class="col-lg-6 col-md-6 col-12" wire:key="completed-course-{{ $course->id }}">
                                                             <div class="rbt-card variation-01 rbt-hover">
                                                                 <div class="rbt-card-img">
                                                                     <a href="{{ route('courses.show', ['slug' => $course->slug]) }}">
-                                                                        <img src="{{ $course->thumbnail ?? '/assets/images/course/course-online-01.jpg' }}" alt="{{ $course->course_name }}">
+                                                                        <img src="{{  $course->image ? asset( 'storage/'.$course->image) : '/assets/images/course/course-online-01.jpg' }}" alt="{{ $course->course_name }}">
                                                                     </a>
                                                                 </div>
                                                                 <div class="rbt-card-body">
@@ -279,21 +284,21 @@
                                                                     </h4>
                                                                     <ul class="rbt-meta">
                                                                         <li><i class="feather-book"></i>{{ $course->materials->count() }} Bài học</li>
-                                                                        <li><i class="feather-users"></i>{{ $course->enrollments->count() }} Học viên</li>
+                                                                        <li><i class="feather-users"></i>{{ $course->enrollments()->where('status', 1)->count() }} Học viên</li>
                                                                     </ul>
 
                                                                     <div class="rbt-progress-style-1 mb--20 mt--10">
                                                                         <div class="single-progress">
-                                                                            <h6 class="rbt-title-style-2 mb--10">Hoàn thành</h6>
+                                                                            <h6 class="rbt-title-style-2 mb--10">Tiến độ</h6>
                                                                             <div class="progress">
-                                                                                <div class="progress-bar wow fadeInLeft bar-color-success" data-wow-duration="0.5s" data-wow-delay=".3s" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                                                                <div class="progress-bar wow fadeInLeft bar-color-success" data-wow-duration="0.5s" data-wow-delay=".3s" role="progressbar" style="width: {{ $this->getCourseProgress($course) }}%" aria-valuenow="{{ $this->getCourseProgress($course) }}" aria-valuemin="0" aria-valuemax="100">
                                                                                 </div>
-                                                                                <span class="rbt-title-style-2 progress-number">100%</span>
+                                                                                <span class="rbt-title-style-2 progress-number">{{ $this->getCourseProgress($course) }}%</span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="rbt-card-bottom">
-                                                                        <a class="rbt-btn btn-sm bg-primary-opacity w-100 text-center" href="#">Tải chứng chỉ</a>
+                                                                        <a class="rbt-btn btn-sm bg-primary-opacity w-100 text-center" href="{{ route('courses.show', ['slug' => $course->slug]) }}">Xem lại</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -302,6 +307,65 @@
                                                     @empty
                                                         <div class="col-12">
                                                             <div class="alert alert-info">Chưa có khóa học nào hoàn thành.</div>
+                                                        </div>
+                                                    @endforelse
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="register-4" role="tabpanel" aria-labelledby="register-tab-4">
+                                                <div class="row g-5">
+                                                    @forelse($availableCourses as $course)
+                                                        <!-- Start Single Course  -->
+                                                        <div class="col-lg-6 col-md-6 col-12" wire:key="available-course-{{ $course->id }}" wire:ignore.self>
+                                                            <div class="rbt-card variation-01 rbt-hover">
+                                                                <div class="rbt-card-img">
+                                                                    <a href="{{ route('courses.show', ['slug' => $course->slug]) }}">
+                                                                        <img style="height: 200px; object-fit: cover;" src="{{  $course->image ? asset( 'storage/'.$course->image) : '/assets/images/course/course-online-01.jpg' }}" alt="{{ $course->course_name }}">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="rbt-card-body">
+                                                                    <div class="rbt-card-top">
+                                                                        <div class="rbt-review">
+                                                                            <div class="rating">
+                                                                                @for($i = 1; $i <= 5; $i++)
+                                                                                    <i class="fas fa-star"></i>
+                                                                                @endfor
+                                                                            </div>
+                                                                            <span class="rating-count"> ({{ $course->feedbacks->count() }} Reviews)</span>
+                                                                        </div>
+                                                                        <div class="rbt-bookmark-btn">
+                                                                            <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h4 class="rbt-card-title">
+                                                                        <a href="{{ route('courses.show', ['slug' => $course->slug]) }}">{{ $course->course_name }}</a>
+                                                                    </h4>
+                                                                    <ul class="rbt-meta">
+                                                                        <li><i class="feather-book"></i>{{ $course->materials->count() }} Bài học</li>
+                                                                        <li><i class="feather-users"></i>{{ $course->enrollments()->where('status', 1)->count() }} Học viên</li>
+                                                                    </ul>
+                                                                    <div class="rbt-card-bottom">
+                                                                        @php
+                                                                            $enrollment = $student->enrollments()->where('course_id', $course->id)->first();
+                                                                            $isPending = $enrollment && $enrollment->status == 0;
+                                                                        @endphp
+                                                                        @if($isPending)
+                                                                            <button class="rbt-btn btn-sm bg-warning-opacity w-100 text-center" disabled>
+                                                                                <i class="feather-clock"></i> Đang chờ duyệt
+                                                                            </button>
+                                                                        @else
+                                                                            <button wire:click="enrollCourse({{ $course->id }})" class="rbt-btn btn-sm bg-primary-opacity w-100 text-center">
+                                                                                Đăng ký học
+                                                                            </button>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Single Course  -->
+                                                    @empty
+                                                        <div class="col-12">
+                                                            <div class="alert alert-info">Không có môn học nào để đăng ký.</div>
                                                         </div>
                                                     @endforelse
                                                 </div>
@@ -338,5 +402,13 @@
     
       
     </body>
-    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if(session('active_tab'))
+                // Chuyển đến tab được chỉ định
+                var tab = new bootstrap.Tab(document.querySelector('#{{ session('active_tab') }}-tab-4'));
+                tab.show();
+            @endif
+        });
+    </script>
 </div>

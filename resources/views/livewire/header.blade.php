@@ -74,7 +74,7 @@
                     </div>
                 </li>
             @else
-                <div class="rbt-btn-wrapper mb--20">
+                <div class="rbt-btn-wrapper     ">
                     <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="{{ route('auth') }}">
                         <span>Đăng Ký Ngay</span>
                     </a>
