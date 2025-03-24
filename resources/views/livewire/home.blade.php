@@ -13,8 +13,17 @@
         <meta property="og:type" content="website">
     </head>
     
-    <body class="rbt-header-sticky">
+    <body class="rbt-header-sticky  active-dark-mode">
     
+        <!-- Video Background -->
+        <div class="video-background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+            <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                <source src="/home/images/hero-bg-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);"></div>
+        </div>
+
         <div id="my_switcher" class="my_switcher">
             <ul>
                 <li>
@@ -35,47 +44,8 @@
     
         <main class="rbt-main-wrapper">
             <!-- Start Banner Area  -->
-            <div class="rbt-banner-area rbt-banner-20 position-relative">
-                <div class="wrapper">
-                    <div class="circle-sd-wrapper">
-                        <div class="circle-shadow-1">
-                            <img src="/assets/images/shape/shadow-1.png" alt="Bannder Shadow">
-                        </div>
-                        <div class="circle-shadow-2">
-                            <img src="/assets/images/shape/shadow-2.png" alt="Bannder Shadow">
-                        </div>
-                        <div class="circle-shadow-3">
-                            <img src="/assets/images/shape/shadow-3.png" alt="Bannder Shadow">
-                        </div>
-                    </div>
-                    <div class="shapes-wrapper">
-                        <div class="curve-line-1">
-                            <img src="/assets/images/shape/curve-line-1.png" alt="Banner Line">
-                        </div>
-                        <div class="curve-line-2">
-                            <img src="/assets/images/shape/curve-line-2.png" alt="Banner Line">
-                        </div>
-                        <div class="curve-line-3">
-                            <img src="/assets/images/shape/curve-line-3.png" alt="Banner Line">
-                        </div>
-                        <div class="curve-line-4">
-                            <img src="/assets/images/shape/curve-line-4.png" alt="Banner Line">
-                        </div>
-                        <div class="shape-hand scene">
-                            <span data-depth="2">
-                                <img src="/assets/images/shape/hand-cap.png" alt="Banner hand">
-                            </span>
-                        </div>
-                        <div class="dot-bg">
-                            <img src="/assets/images/shape/dot-bg.png" alt="Banner Dot">
-                        </div>
-                        <div class="dot-element scene">
-                            <span data-depth="2">
-                                <img src="/assets/images/shape/dot-element.png" alt="Banner Dot">
-                            </span>
-                        </div>
-                    </div>
-    
+            <div class="rbt-banner-area rbt-banner-20 position-relative" style="min-height: 100vh; background: none">
+                <div class="wrapper" style="position: relative; z-index: 1;">
                     <div class="container">
                         <div class="row col-wrap flex-column-reverse flex-xl-row">
                             <div class="col-xl-6">
@@ -85,27 +55,17 @@
                                             <img src="/assets/images/shape/translate.png" alt="">
                                         </span>
                                     </div>
-                                    <h6 class="subtitle theme-gradient">Web Quản Lý Môn Học</h6>
+                                    <h6 class="subtitle theme-  text-white">Khoa Máy Tàu Biển</h6>
                                     <div class="title-in-shape d-flex flex-wrap align-items-center gap-2">
-                                        <div class="profile-share">
-                                            <a href="#" class="avatar" data-tooltip="Nguyễn Văn A" tabindex="0">
-                                                <img src="/assets/images/shape/user-1.png" alt="education">
-                                            </a>
-                                            <a href="#" class="avatar" data-tooltip="Trần Thị B" tabindex="0">
-                                                <img src="/assets/images/shape/avatar-in-text-2.png" alt="education">
-                                            </a>
-                                        </div>
-                                        <h1 class="title">Quản Lý</h1>
+                                       
+                                        <h1 class="title text-white">Quản Lý</h1>
                                     </div>
-                                    <h1 class="title">Môn Học<span>
-                                            <img src="/assets/images/shape/translate-in-text.png" alt="">
-                                        </span> Trực Tuyến
-                                    </h1>
-                                    <h1 class="title">Dễ Dàng & Hiệu Quả</h1>
-                                    <p class="description mt--20 mb--40 mb_sm--30">Hệ thống giúp quản lý môn học, theo dõi tiến độ, đánh giá sinh viên và hỗ trợ giảng dạy hiệu quả.</p>
-                                    <a class="rbt-btn btn-gradient hover-icon-reverse" href="#">
+                                    <h1 class="title text-white  " style="text-wrap: nowrap;" >Môn Học Chuyên Ngành</h1>
+                                    <h1 class="title text-white">Máy Tàu Biển</h1>
+                                    <p class="description mt--20 mb--40 mb_sm--30 text-white">Hệ thống quản lý môn học chuyên ngành Máy tàu biển, giúp sinh viên theo dõi tiến độ học tập, điểm danh trực tuyến và tương tác hiệu quả với giảng viên.</p>
+                                    <a class="rbt-btn btn-  hover-icon-reverse" href="#">
                                         <span class="icon-reverse-wrapper">
-                                            <span class="btn-text">Khám Phá Ngay</span>
+                                            <span class="btn-text">Xem Môn Học</span>
                                             <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                             <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         </span>

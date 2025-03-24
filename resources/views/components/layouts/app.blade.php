@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
- <meta name="google-site-verification" content="zYfwKdmrCEkdvAZnSCwDApHZaSOeumxORzrX9IO4fjk" />
+        <meta name="google-site-verification" content="zYfwKdmrCEkdvAZnSCwDApHZaSOeumxORzrX9IO4fjk" />
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -30,35 +30,42 @@
     
         <link rel="stylesheet" href="/assets/css/styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        
+        <!-- Swiper CSS -->
+        
+        <!-- AOS CSS -->
+        <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <style>
-* , h1, h2, h3, h4, h5, h6, h7, span, p, a{
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-}
-.rbt-header .logo a img {
-    max-height: 75px !important;
-    object-fit: cover;
-}
+            * , h1, h2, h3, h4, h5, h6, h7, span, p, a{
+                font-family: "Roboto", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: <weight>;
+                font-style: normal;
+                font-variation-settings:
+                    "wdth" 100;
+            }
+            .rbt-header .logo a img {
+                max-height: 75px !important;
+                object-fit: cover;
+            }
         </style>
         @livewireStyles
+        @stack('styles')
     </head>
-    <body>
-
+    <body class="active-dark-mode">
         @livewire('header')
         {{ $slot }}
         @livewire('footer')
-    </body>
 
-
-
-       <!-- JS
-    ============================================ -->
+        <!-- JS
+        ============================================ -->
         <!-- Modernizer JS -->
         <script src="/assets/js/vendor/modernizr.min.js"></script>
         <!-- jQuery JS -->
@@ -92,9 +99,14 @@
         <script src="/assets/js/vendor/jodit.min.js"></script>
         <script src="/assets/js/vendor/Sortable.min.js"></script>
     
-    
-    
         <!-- Main JS -->
         <script src="/assets/js/main.js"></script>
+        
+        <!-- Swiper JS -->
+        
+        <!-- AOS JS -->
+        
         @livewireScripts
+        @stack('scripts')
+    </body>
 </html>

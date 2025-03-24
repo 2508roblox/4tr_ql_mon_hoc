@@ -172,7 +172,7 @@
                                     <div class="content">
     
                                         <div class="section-title">
-                                            <h4 class="rbt-title-style-3">Enrolled Courses</h4>
+                                            <h4 class="rbt-title-style-3">Danh sách môn học</h4>
                                         </div>
     
                                         <div class="advance-tab-button mb--30">

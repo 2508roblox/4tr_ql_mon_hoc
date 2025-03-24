@@ -12,7 +12,7 @@
                             </div>
                             <div class="logo d-none logo-light">
                                 <a href="index.html">
-                                    <img style="max-height: 100px;" src="/assets/dark-logo.png" alt="Edu-cause">
+                                    <img style="max-height: 100px;" src="/assets/Removal-474.png" alt="Edu-cause">
                                 </a>
                             </div>
                         
@@ -38,7 +38,7 @@
                             </ul>
                         
                             <div class="contact-btn mt--30">
-                                <a class="rbt-btn hover-icon-reverse btn-border-gradient radius-round" href="#">
+                                <a class="rbt-btn hover-icon-reverse btn-border-  radius-round" href="#">
                                     <div class="icon-reverse-wrapper">
                                         <span class="btn-text">Liên hệ với chúng tôi</span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -79,23 +79,30 @@
             </div>
         </div>
         <!-- Start Copyright Area  -->
-        <div class="copyright-area copyright-style-1 ptb--20">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
-                        <p class="rbt-link-hover text-center text-lg-start">Copyright © 2025 <a href="https://hgdigital.site">HG DIGITAL.</a> All Rights Reserved</p>
-                    </div>
-                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
-                        <ul class="copyright-link rbt-link-hover justify-content-center justify-content-lg-end mt_sm--10 mt_md--10">
-                            <li><a href="#">Terms of service</a></li>
-                            <li><a href="#">Privacy policy</a></li>
-                            <li><a href="#">Subscription</a></li>
-                            <li><a href="#">Login & Register</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <!-- End Copyright Area  -->
     </footer>
+    <style>
+        .active-dark-mode .widget-title {
+            color: #ffffff !important;
+        }
+        .active-dark-mode .footer-link-list li {
+            background: #2d2d2d;
+        }
+        .active-dark-mode .footer-link-list li a {
+            color: #ffffff !important;
+        }
+        .active-dark-mode .footer-link-list li i {
+            color: #ffffff !important;
+        }
+        .active-dark-mode .footer-link-list li   {
+            background:var(--color-darker) !important;
+           
+        }
+        .active-dark-mode .footer-link-list li:hover {
+            background: #3d3d3d;
+        }
+    </style>
+    
 </div>
+

@@ -1,4 +1,48 @@
 <div>
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Đăng Nhập & Đăng Ký - Quản lý môn học Khoa Máy tàu biển</title>
+        <meta name="description" content="Đăng nhập và đăng ký tài khoản để truy cập hệ thống quản lý môn học Khoa Máy tàu biển">
+        <meta name="keywords" content="đăng nhập, đăng ký, quản lý môn học, mkt subject, khoa máy tàu biển">
+        <meta name="author" content="MKT Subject Management">
+        <meta property="og:title" content="Đăng Nhập & Đăng Ký - Quản lý môn học Khoa Máy tàu biển">
+        <meta property="og:description" content="Đăng nhập và đăng ký tài khoản để truy cập hệ thống quản lý môn học Khoa Máy tàu biển">
+        <meta property="og:type" content="website">
+        <style>
+            .active-dark-mode {
+                background-color: #1e1e1e;
+                color: #ffffff;
+            }
+            .active-dark-mode .rbt-breadcrumb-default {
+                background: #2d2d2d;
+            }
+            .active-dark-mode .rbt-elements-area {
+                background: #1e1e1e;
+            }
+            .active-dark-mode .title,
+            .active-dark-mode .rbt-breadcrumb-item a,
+            .active-dark-mode .rbt-breadcrumb-item.active {
+                color: #ffffff !important;
+            }
+            .active-dark-mode .form-group input {
+                background: #2d2d2d;
+                border-color: #3d3d3d;
+                color: #ffffff;
+            }
+            .active-dark-mode .form-group input:focus {
+                border-color: #ff6b6b;
+            }
+            .active-dark-mode .rbt-checkbox label {
+                color: #ffffff;
+            }
+            .active-dark-mode .rbt-btn-link {
+                color: #ff6b6b;
+            }
+        </style>
+    </head>
     <body class="rbt-header-sticky">
 
         <div id="my_switcher" class="my_switcher">
@@ -286,4 +330,5 @@
     
       
     </body>
+    </html>
 </div>
