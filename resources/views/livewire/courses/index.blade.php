@@ -148,7 +148,8 @@
 
     <div class="rbt-page-banner-wrapper">
         <!-- Start Banner BG Image -->
-        <div class="rbt-banner-image"></div>
+        <div class="rbt-banner-image" style="    background: linear-gradient(270deg, #004bff 0%, #0331e1 100%) !important;
+}"></div>
         <!-- End Banner BG Image -->
         <div class="rbt-banner-content">
     

@@ -63,7 +63,7 @@
                                     <h1 class="title text-white  " style="text-wrap: nowrap;" >Môn Học Chuyên Ngành</h1>
                                     <h1 class="title text-white">Máy Tàu Biển</h1>
                                     <p class="description mt--20 mb--40 mb_sm--30 text-white">Hệ thống quản lý môn học chuyên ngành Máy tàu biển, giúp sinh viên theo dõi tiến độ học tập, điểm danh trực tuyến và tương tác hiệu quả với giảng viên.</p>
-                                    <a class="rbt-btn btn-  hover-icon-reverse" href="#">
+                                    <a href="{{ route('courses.index') }}" class="rbt-btn btn-  hover-icon-reverse" href="#">
                                         <span class="icon-reverse-wrapper">
                                             <span class="btn-text">Xem Môn Học</span>
                                             <span class="btn-icon"><i class="feather-arrow-right"></i></span>
