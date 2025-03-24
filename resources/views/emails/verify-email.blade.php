@@ -84,7 +84,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="{{ asset('assets/giang-removebg-preview.png') }}" alt="Logo">
+            <img src="{{ asset('assets/Removal-474.png') }}" alt="Logo">
         </div>
         
         <div class="content">
