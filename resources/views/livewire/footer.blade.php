@@ -7,7 +7,7 @@
                         <div class="footer-widget">
                             <div class="logo logo-dark">
                                 <a href="index.html">
-                                    <img style="max-height: 100px;" src="/assets/web-logo-removebg-preview.png" alt="Edu-cause">
+                                    <img style="max-height: 100px;" src="/assets/Removal-474.png" alt="Edu-cause">
                                 </a>
                             </div>
                             <div class="logo d-none logo-light">

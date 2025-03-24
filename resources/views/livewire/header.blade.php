@@ -9,13 +9,13 @@
                     <div class="header-left">
                         <div class="logo logo-dark">
                             <a href="{{ route('home') }}">
-                                <img src="/assets/web-logo-removebg-preview.png" alt="Logo Giáo Dục">
+                                <img src="/assets/Removal-474.png" alt="Logo Giáo Dục">
                             </a>
                         </div>
         
                         <div class="logo d-none logo-light">
                             <a href="{{ route('home') }}">
-                                <img src="/assets/web-logo-removebg-preview.png" alt="Logo Giáo Dục">
+                                <img src="/assets/Removal-474.png" alt="Logo Giáo Dục">
                             </a>
                         </div>
                     </div>

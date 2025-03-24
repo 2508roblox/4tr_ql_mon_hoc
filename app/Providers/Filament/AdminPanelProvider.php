@@ -32,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(CustomLogin::class)
-            ->brandLogo(asset('assets/z6429180696238_5adc3943dfcf04e61e3e33b9cfe39ea9-removebg-preview (1).png'))
+            ->brandLogo(asset('assets/Removal-474.png'))
             ->brandLogoHeight('3rem')
             ->colors([
                 'primary' => Color::Amber,
