@@ -157,7 +157,7 @@
                             <div class="col-lg-8">
                                 <div class="content text-start">
                                     <ul class="page-list">
-                                        <li class="rbt-breadcrumb-item"><a href="{{ route('home') }}">Trang chủ</a></li>
+                                        <li class="rbt-breadcrumb-item"><a href="{{ route('auth') }}">Trang chủ</a></li>
                                         <li>
                                             <div class="icon-right"><i class="feather-chevron-right"></i></div>
                                         </li>
@@ -537,79 +537,112 @@
                                     @if(auth('student')->check() && $isEnrolled && $enrollmentStatus == 1)
                                     <div class="feedback-form about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more" wire:ignore.self>
                                         <h3>Đánh giá môn học</h3>
-                                
+                                    
                                         {{-- Hiển thị thông báo sau khi gửi --}}
                                         @if(session()->has('message'))
                                             <div class="alert alert-success">
                                                 {{ session('message') }}
                                             </div>
                                         @endif
-                                            <style>
-                                             .rating-stars {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .rating-stars .fa-star {
-            font-size: 24px;
-            color: #ccc; /* Mặc định màu xám */
-            transition: color 0.3s;
-        }
-        
-        .rating-stars .fa-star.selected {
-            color: gold; /* Khi được chọn, chuyển sang màu vàng */
-        }
-        
-        .rating-stars .fa-star:hover {
-            color: gold; /* Hiệu ứng hover để chọn sao */
-        }
-        
-        
-                                            </style>
+                                    
+                                        <style>
+                                            .rating-stars {
+                                                display: flex;
+                                                gap: 5px;
+                                            }
+                                    
+                                            .rating-stars .fa-star {
+                                                font-size: 24px;
+                                                color: #ccc; /* Mặc định màu xám */
+                                                transition: color 0.3s;
+                                                cursor: pointer;
+                                            }
+                                    
+                                            .rating-stars .fa-star.selected,
+                                            .rating-stars .fa-star:hover {
+                                                color: gold; /* Khi được chọn hoặc hover, chuyển sang màu vàng */
+                                            }
+                                    
+                                            .understanding-buttons {
+                                                display: flex;
+                                                gap: 10px;
+                                                margin-bottom: 15px;
+                                            }
+                                    
+                                            .btn-understand {
+                                                flex: 1;
+                                                padding: 10px;
+                                                border: none;
+                                                border-radius: 6px;
+                                                font-size: 14px;
+                                                cursor: pointer;
+                                            }
+                                    
+                                            .btn-understand.yes {
+                                                background-color: #28a745;
+                                                color: white;
+                                            }
+                                    
+                                            .btn-understand.no {
+                                                background-color: #dc3545;
+                                                color: white;
+                                            }
+                                    
+                                            textarea {
+                                                width: 100%;
+                                                background-color: transparent;
+                                                border: 2px solid var(--color-border);
+                                                border-radius: 6px;
+                                                line-height: 23px;
+                                                padding: 10px 20px;
+                                                font-size: 14px !important;
+                                                color: var(--color-body);
+                                                margin-bottom: 15px;
+                                            }
+                                        </style>
+                                    
                                         <form wire:submit.prevent="submitFeedback">
-                                            <div class="form-group rating-stars">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <i class="fa fa-star {{ $rating >= $i ? 'selected' : '' }}"
-                                                       wire:click="setRating({{ $i }})"
-                                                       style="cursor: pointer;"
-                                                   ></i>
-                                                @endfor
-                                            </div>
-                                        
-                                            <div class="form-group d-flex gap-4">
-                                                <div>
-                                                    <input type="radio" name="understand" id="understand" wire:model="understand" value="1">
-                                                    <label for="understand">Tôi đã hiểu bài</label>
-                                                </div>
-                                                
-                                                <div>
-                                                    <input type="radio" name="understand" id="not_understand" wire:model="understand" value="0">
-                                                    <label for="not_understand">Tôi chưa hiểu bài</label>
+                                            <div class="form-group mt-4">
+                                             
+                                                <div class="rating-stars">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <i class="fa fa-star {{ $rating >= $i ? 'selected' : '' }}"
+                                                           wire:click="setRating({{ $i }})"
+                                                           style="cursor: pointer;"
+                                                       ></i>
+                                                    @endfor
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <div class="mb-2 fw-bold">Mức độ hiểu bài:</div>
+                                                <div class="d-flex gap-3">
+                                                    <button type="button" 
+                                                        wire:model="understand"
+                                                        wire:click="$set('understand', 1)"
+                                                        class="btn {{ $understand == 1 ? 'btn-success text-white' : 'btn-outline-success' }}">
+                                                        Đã hiểu bài
+                                                    </button>
+                                                    <button type="button"
+                                                        wire:model="understand" 
+                                                        wire:click="$set('understand', 0)"
+                                                        class="btn {{ $understand == 0 ? 'btn-danger text-white' : 'btn-outline-danger' }}">
+                                                        Chưa hiểu bài
+                                                    </button>
+                                                </div>
+                                            </div>
+
                                         
-                                            <div class=" ">
-                                                <textarea id="comment" cols="20" rows="5" wire:model="comment" placeholder="Góp ý xây dựng môn học:" class="form-control"></textarea>
-                                           <style>
-                                                textarea {
-                                                    width: 100%;
-            background-color: transparent;
-            border: 2px solid var(--color-border);
-            border-radius: 6px;
-            line-height: 23px;
-            padding: 10px 20px;
-            font-size: 14px !important;
-            color: var(--color-body);
-            margin-bottom: 15px;
-                                                }
-                                            </style>
-                                            
+
+                                            <div class="form-group mt-4">
+                                                <div class="mb-2 fw-bold">Đánh giá môn học:</div>
+                                                <textarea id="comment" cols="20" rows="5" wire:model="comment" 
+                                                    placeholder="Góp ý xây dựng môn học:" class="form-control"></textarea>
                                             </div>
                                         
-                                            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+                                            <button type="submit" class="btn btn-primary mt-3">Gửi đánh giá</button>
                                         </form>
-                                        
                                     </div>
+                                    
                                 @endif
                                     <div class="about-author-list rbt-shadow-box featured-wrapper mt--30 has-show-more">
                                         <div class="section-title">
@@ -731,6 +764,13 @@
                             <span class="btn-icon"><i class="feather-check-circle"></i></span>
                         </span>
                     </button>
+
+                    <button wire:click="$set('showTestModal', true)" class="rbt-btn btn-gradient hover-icon-reverse w-100 rounded-pill">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Làm bài kiểm tra</span>
+                            <span class="btn-icon"><i class="feather-file-text"></i></span>
+                        </span>
+                    </button>
                 @endif
             </div>
 
@@ -775,13 +815,13 @@
                                                     <span class="badge bg-success">Đã điểm danh</span>
                                                 @elseif($isCurrentWeek)
                                                     <button wire:click="markAttendance({{ $week }})" 
-                                                            class="rbt-btn btn-sm btn-gradient">
+                                                            class="rbt-btn btn-md btn-gradient">
                                                         Điểm danh
                                                     </button>
                                                 @elseif($isPastWeek)
                                                     <span class="badge bg-danger">Vắng mặt</span>
                                                 @else
-                                                    <button class="rbt-btn btn-sm btn-gradient" disabled>
+                                                    <button class="rbt-btn btn-md btn-gradient" disabled>
                                                         Chưa đến hạn
                                                     </button>
                                                 @endif
@@ -883,6 +923,175 @@
                 .active-dark-mode .btn-close {
                     filter: invert(1) grayscale(100%) brightness(200%);
                 }
+            </style>
+            @endif
+
+            <!-- Modal Làm bài kiểm tra -->
+            @if($showTestModal)
+            <div class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header border-bottom">
+                            <h5 class="modal-title fs-4">Bài kiểm tra - {{ $course->course_name }}</h5>
+                            <button type="button" class="btn-close" wire:click="$set('showTestModal', false)"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Form nộp bài mới -->
+                            <div class="mb-4 p-4 bg-light rounded-3">
+                                <h6 class="mb-4 fs-5 fw-bold">Nộp bài mới</h6>
+                                <form wire:submit.prevent="submitTest">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fs-6 mb-2">File bài làm (Word)</label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control form-control-lg" wire:model="testFile" accept=".doc,.docx">
+                                                <span class="input-group-text"><i class="feather-file-text"></i></span>
+                                            </div>
+                                            @error('testFile') <span class="text-danger mt-1">{{ $message }}</span> @enderror
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label fs-6 mb-2">Hình ảnh (không bắt buộc)</label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control form-control-lg" wire:model="testImage" accept="image/*">
+                                                <span class="input-group-text"><i class="feather-image"></i></span>
+                                            </div>
+                                            @error('testImage') <span class="text-danger mt-1">{{ $message }}</span> @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4 text-end">
+                                        <button type="submit" class="rbt-btn btn-gradient">
+                                            <i class="feather-upload-cloud me-2"></i>Nộp bài
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Danh sách bài đã nộp -->
+                            @if($submittedTests->count() > 0)
+                            <div>
+                                <h6 class="mb-4 fs-5 fw-bold">Bài đã nộp</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Ngày nộp</th>
+                                                <th>File bài làm</th>
+                                                <th>Hình ảnh</th>
+                                                <th>Điểm</th>
+                                                <th>Nhận xét</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($submittedTests as $test)
+                                            <tr>
+                                                <td class="align-middle">{{ $test->submitted_at->format('d/m/Y H:i') }}</td>
+                                                <td class="align-middle">
+                                                    <a href="{{ asset('storage/' . $test->file_path) }}" 
+                                                       class="btn btn-md btn-outline-primary" 
+                                                       download>
+                                                        <i class="feather-download me-1"></i> Tải xuống
+                                                    </a>
+                                                </td>
+                                                <td class="align-middle">
+                                                    @if($test->image)
+                                                        <a href="{{ asset('storage/' . $test->image) }}" 
+                                                           class="btn btn-md btn-outline-info"
+                                                           target="_blank">
+                                                            <i class="feather-image me-1"></i> Xem ảnh
+                                                        </a>
+                                                    @else
+                                                        <span class="text-muted">Không có</span>
+                                                    @endif
+                                                </td>
+                                                <td class="align-middle">
+                                                    @if($test->score)
+                                                        <span class="badge bg-success">{{ $test->score }}</span>
+                                                    @else
+                                                        <span class="badge bg-warning text-dark">Chưa chấm</span>
+                                                    @endif
+                                                </td>
+                                                <td class="align-middle">{{ $test->comment ?? 'Không có' }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center mt-4">
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-backdrop fade show"></div>
+
+            <style>
+            .modal-content {
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            }
+
+            .modal-header {
+                background: #f8f9fa;
+                border-radius: 15px 15px 0 0;
+                padding: 1.5rem;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+
+            .form-control-lg {
+                height: 50px;
+                font-size: 1rem;
+            }
+
+            .input-group-text {
+                background: #fff;
+                border-left: none;
+            }
+
+            .table th {
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 0.85rem;
+            }
+
+            .badge {
+                padding: 0.5rem 1rem;
+                font-weight: 500;
+            }
+
+            /* Dark mode styles */
+            .active-dark-mode .modal-content {
+                background: var(--color-darker);
+            }
+
+            .active-dark-mode .modal-header {
+                background: var(--color-dark);
+                border-bottom-color: rgba(255,255,255,0.1);
+            }
+
+            .active-dark-mode .bg-light {
+                background-color: var(--color-dark) !important;
+            }
+
+            .active-dark-mode .table-light {
+                background-color: var(--color-dark);
+                color: var(--color-white);
+            }
+
+            .active-dark-mode .form-control,
+            .active-dark-mode .input-group-text {
+                background-color: var(--color-darker);
+                border-color: rgba(255,255,255,0.1);
+                color: var(--color-white);
+            }
             </style>
             @endif
         @else
@@ -1018,10 +1227,10 @@
                                         <td>{{ $grade->grade_name }}</td>
                                         <td>{{ $grade->created_at->format('d/m/Y H:i') }}</td>
                                         <td>
-                                            <button wire:click="viewGrade({{ $grade->id }})" class="rbt-btn btn-sm btn-primary">
+                                            <button wire:click="viewGrade({{ $grade->id }})" class="rbt-btn btn-md btn-primary">
                                                 <i class="feather-eye"></i> Xem
                                             </button>
-                                            <a href="{{ asset('storage/' . $grade->file_path) }}" class="rbt-btn btn-sm btn-secondary" download>
+                                            <a href="{{ asset('storage/' . $grade->file_path) }}" class="rbt-btn btn-md btn-secondary" download>
                                                 <i class="feather-download"></i> Tải
                                             </a>
                                         </td>

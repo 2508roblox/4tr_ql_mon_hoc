@@ -12,7 +12,7 @@ class Header extends Component
     {
         Auth::guard('student')->logout();
         Session::flush(); // Xóa toàn bộ session
-        return redirect()->route('home'); // Điều hướng về trang chủ hoặc trang login
+        return redirect()->route('auth'); // Điều hướng về trang chủ hoặc trang login
     }
 
     public function render()

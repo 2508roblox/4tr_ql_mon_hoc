@@ -180,7 +180,7 @@
                         <div class="breadcrumb-inner text-center">
                             <h2 class="title">Đăng nhập & Đăng ký</h2>
                             <ul class="page-list">
-                                <li class="rbt-breadcrumb-item"><a href="{{ route('home') }}">Trang chủ</a></li>
+                                <li class="rbt-breadcrumb-item"><a href="#">Trang chủ</a></li>
                                 <li>
                                     <div class="icon-right"><i class="feather-chevron-right"></i></div>
                                 </li>

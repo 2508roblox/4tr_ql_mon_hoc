@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    {{-- <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="footer-widget">
                             <h4 class="widget-title" style="font-size: 24px; margin-bottom: 25px; color: #1e1e1e;">Thông tin liên hệ</h4>
                             <div class="inner">
@@ -69,7 +69,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

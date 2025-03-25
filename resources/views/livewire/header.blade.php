@@ -8,13 +8,13 @@
                 <div class="mainbar-row rbt-navigation-center align-items-center">
                     <div class="header-left">
                         <div class="logo logo-dark">
-                            <a href="{{ route('home') }}">
+                            <a href="{{ route('auth') }}">
                                 <img src="/assets/Removal-474.png" alt="Logo Giáo Dục">
                             </a>
                         </div>
         
                         <div class="logo d-none logo-light">
-                            <a href="{{ route('home') }}">
+                            <a href="{{ route('auth') }}">
                                 <img src="/assets/Removal-474.png" alt="Logo Giáo Dục">
                             </a>
                         </div>
@@ -23,9 +23,7 @@
                     <div class="rbt-main-navigation d-none d-xl-block">
                         <nav class="mainmenu-nav">
                             <ul class="mainmenu">
-                                <li class="with-megamenu position-static">
-                                    <a href="{{ route('home') }}">Trang Chủ</a>
-                                </li>
+                             
         
                                 <li class="with-megamenu">
                                     <a href="{{ route('courses.index') }}">Môn học</a>
@@ -146,9 +144,7 @@
 
             <nav class="mainmenu-nav">
                 <ul class="mainmenu">
-                    <li class=" position-static">
-                        <a href="{{ route('home') }}">Trang Chủ</a>
-                    </li>
+               
                     
                     <li class="">
                         <a href="{{ route('courses.index') }}">Môn học</a>

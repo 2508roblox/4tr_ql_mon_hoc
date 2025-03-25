@@ -30,7 +30,7 @@ class CustomPage extends Component
     {
         Auth::guard('student')->logout();
         Session::flush(); // Xóa toàn bộ session
-        return redirect()->route('home'); // Điều hướng về trang chủ
+        return redirect()->route('auth'); // Điều hướng về trang chủ
     }
 
     public function render()

@@ -12,7 +12,7 @@ class StudentAuthMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!Auth::guard('student')->check()) {
-            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để truy cập trang này.');
+            return redirect()->route('auth')->with('error', 'Bạn cần đăng nhập để truy cập trang này.');
         }
 
         return $next($request);

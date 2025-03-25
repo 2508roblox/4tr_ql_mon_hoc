@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 25, 2025 at 02:43 AM
+-- Generation Time: Mar 24, 2025 at 10:50 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -69,11 +69,10 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('laravel_cache_livewire-rate-limiter:2b5beabac0aaa62b75ff665708fd5b0b5abb2408:timer', 'i:1742559428;', 1742559428),
 ('laravel_cache_theme', 's:6:\"sunset\";', 2057888761),
 ('laravel_cache_theme_color', 's:4:\"blue\";', 2057888757),
-('quan_ly_mon_hoc_khoa_may_tau_bien_cache_da4b9237bacccdf19c0760cab7aec4a8359010b0', 'i:2;', 1742868972),
-('quan_ly_mon_hoc_khoa_may_tau_bien_cache_da4b9237bacccdf19c0760cab7aec4a8359010b0:timer', 'i:1742868972;', 1742868972),
-('quan_ly_mon_hoc_khoa_may_tau_bien_cache_livewire-rate-limiter:2b5beabac0aaa62b75ff665708fd5b0b5abb2408', 'i:2;', 1742869713),
-('quan_ly_mon_hoc_khoa_may_tau_bien_cache_livewire-rate-limiter:2b5beabac0aaa62b75ff665708fd5b0b5abb2408:timer', 'i:1742869713;', 1742869713),
-('quan_ly_mon_hoc_khoa_may_tau_bien_cache_theme', 's:6:\"sunset\";', 2058230010);
+('quan_ly_mon_hoc_khoa_may_tau_bien_cache_da4b9237bacccdf19c0760cab7aec4a8359010b0', 'i:2;', 1742813247),
+('quan_ly_mon_hoc_khoa_may_tau_bien_cache_da4b9237bacccdf19c0760cab7aec4a8359010b0:timer', 'i:1742813247;', 1742813247),
+('quan_ly_mon_hoc_khoa_may_tau_bien_cache_livewire-rate-limiter:2b5beabac0aaa62b75ff665708fd5b0b5abb2408', 'i:1;', 1742810078),
+('quan_ly_mon_hoc_khoa_may_tau_bien_cache_livewire-rate-limiter:2b5beabac0aaa62b75ff665708fd5b0b5abb2408:timer', 'i:1742810078;', 1742810078);
 
 -- --------------------------------------------------------
 
@@ -199,9 +198,7 @@ INSERT INTO `feedbacks` (`id`, `student_id`, `course_id`, `understand`, `comment
 (9, 1, 1, 0, 'eeeee', '2025-03-23 05:19:06', '2025-03-23 05:19:06', 1),
 (10, 1, 1, 0, '234', '2025-03-23 05:19:29', '2025-03-23 05:19:29', 4),
 (11, 1, 1, 1, 'sdfgsdfg', '2025-03-23 05:19:49', '2025-03-23 05:19:49', 5),
-(12, 1, 1, 1, '123', '2025-03-23 05:21:27', '2025-03-23 05:21:27', 1),
-(13, 1, 1, 1, '123123123123213', '2025-03-24 18:31:00', '2025-03-24 18:31:00', 2),
-(14, 1, 1, 0, '234', '2025-03-24 18:32:03', '2025-03-24 18:32:03', 3);
+(12, 1, 1, 1, '123', '2025-03-23 05:21:27', '2025-03-23 05:21:27', 1);
 
 -- --------------------------------------------------------
 
@@ -507,8 +504,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2025_03_20_020429_modify_grades_table', 1),
 (23, '2025_03_20_044436_add_username_to_users_table', 1),
 (24, '2025_03_21_000000_modify_attendance_table', 1),
-(25, '2025_03_21_121729_add_status_to_enrollments_table', 2),
-(26, '2025_03_25_015228_create_student_tests_table', 3);
+(25, '2025_03_21_121729_add_status_to_enrollments_table', 2);
 
 -- --------------------------------------------------------
 
@@ -549,7 +545,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Mr2L0pOUgg97ZvhQyXa5UoMqVQdlCdzOEo1ZfycH', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo3OntzOjY6Il90b2tlbiI7czo0MDoidzFoQld3SVg1ckFyd0N0WlIyc2tSbHBrMXZwbHlXanNKNGFpSk90RiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9kYXNoYm9hcmQvdGVzdC1oaXN0b3J5Ijt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2MDoiJDJ5JDEyJEhKOGt5YTVJQmQvZTBnVGdDRzZEMk9idTJidVkvaXN6aDlZdkE4UkhwNldnVG5ZZzU0UnZXIjtzOjU0OiJsb2dpbl9zdHVkZW50XzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjg6ImZpbGFtZW50IjthOjA6e319', 1742870570);
+('taGkPrV7YynQOArgdKdkuxvnNy8PJjoHhCnDNwx2', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo4OntzOjY6Il90b2tlbiI7czo0MDoiV3ZqRjJEVkNhMDYycEVJZHp4Ykppa3N5TTlkbWxNVkpMMG5nWnp5dCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTQ6ImxvZ2luX3N0dWRlbnRfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MzoidXJsIjthOjA6e31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTIkSEo4a3lhNUlCZC9lMGdUZ0NHNkQyT2J1MmJ1WS9pc3poOVl2QThSSHA2V2dUbllnNTRSdlciO3M6ODoiZmlsYW1lbnQiO2E6MDp7fX0=', 1742813385);
 
 -- --------------------------------------------------------
 
@@ -628,39 +624,6 @@ INSERT INTO `student_learning_history` (`id`, `student_id`, `lesson_resource_id`
 (30, 1, 4, '2025-03-23 06:14:32', NULL, 1, '2025-03-23 06:14:32', '2025-03-23 06:14:32'),
 (31, 1, 5, '2025-03-23 06:14:33', NULL, 1, '2025-03-23 06:14:33', '2025-03-23 06:14:33'),
 (32, 1, 6, '2025-03-23 06:14:34', NULL, 1, '2025-03-23 06:14:34', '2025-03-23 06:14:34');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student_tests`
---
-
-CREATE TABLE `student_tests` (
-  `id` bigint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL,
-  `student_id` bigint UNSIGNED NOT NULL,
-  `file_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `score` double DEFAULT NULL,
-  `comment` text COLLATE utf8mb4_unicode_ci,
-  `submitted_at` timestamp NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `student_tests`
---
-
-INSERT INTO `student_tests` (`id`, `course_id`, `student_id`, `file_path`, `image`, `score`, `comment`, `submitted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'tests/imC3OykTyJwWgHnfySTc0bzt9uJLxYl32cD6UjVL.docx', NULL, 9, 'Tốt', '2025-03-24 19:05:05', '2025-03-24 19:05:05', '2025-03-24 19:25:45'),
-(2, 1, 1, 'tests/p702tw9NjMLAWMntsZOTduwVIzDul52dRqXcS9fD.docx', 'tests/images/O5fyrb4ifeWUIY0E4E3nZ8lbhU5guoGhDjA3bCaV.jpg', NULL, NULL, '2025-03-24 19:06:19', '2025-03-24 19:06:19', '2025-03-24 19:06:19'),
-(3, 1, 1, 'tests/O4ufEOFDPbU2rXmUaR7oulIn41SBQ7INHyLCJG2A.docx', 'tests/images/KPzXS0kS9N1C8UIgJ5TlxAx4oW5Tz25glZzuZS4t.jpg', NULL, NULL, '2025-03-24 19:07:04', '2025-03-24 19:07:04', '2025-03-24 19:07:04'),
-(4, 1, 1, 'tests/IMbfmMFJScCRTXBWb6RROfuJrnZE6r9dzGBi1Rwr.docx', 'tests/images/SkFyqrfOs6lqjHXRKKi13VvM1QvtY6lPl9AS4kAA.jpg', NULL, NULL, '2025-03-24 19:15:17', '2025-03-24 19:15:17', '2025-03-24 19:15:17'),
-(5, 1, 1, 'tests/imC3OykTyJwWgHnfySTc0bzt9uJLxYl32cD6UjVL.docx', NULL, NULL, NULL, '2025-03-25 02:17:18', '2025-03-24 19:05:05', '2025-03-24 19:05:05'),
-(6, 1, 1, 'tests/p702tw9NjMLAWMntsZOTduwVIzDul52dRqXcS9fD.docx', 'tests/images/O5fyrb4ifeWUIY0E4E3nZ8lbhU5guoGhDjA3bCaV.jpg', NULL, NULL, '2025-03-25 02:17:18', '2025-03-24 19:06:19', '2025-03-24 19:06:19'),
-(7, 1, 1, 'tests/O4ufEOFDPbU2rXmUaR7oulIn41SBQ7INHyLCJG2A.docx', 'tests/images/KPzXS0kS9N1C8UIgJ5TlxAx4oW5Tz25glZzuZS4t.jpg', NULL, NULL, '2025-03-25 02:17:18', '2025-03-24 19:07:04', '2025-03-24 19:07:04'),
-(8, 1, 1, 'tests/IMbfmMFJScCRTXBWb6RROfuJrnZE6r9dzGBi1Rwr.docx', 'tests/images/SkFyqrfOs6lqjHXRKKi13VvM1QvtY6lPl9AS4kAA.jpg', NULL, NULL, '2025-03-25 02:17:18', '2025-03-24 19:15:17', '2025-03-24 19:15:17');
 
 -- --------------------------------------------------------
 
@@ -823,14 +786,6 @@ ALTER TABLE `student_learning_history`
   ADD KEY `student_learning_history_lesson_resource_id_foreign` (`lesson_resource_id`);
 
 --
--- Indexes for table `student_tests`
---
-ALTER TABLE `student_tests`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `student_tests_course_id_foreign` (`course_id`),
-  ADD KEY `student_tests_student_id_foreign` (`student_id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -870,7 +825,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `grades`
@@ -900,7 +855,7 @@ ALTER TABLE `materials`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -913,12 +868,6 @@ ALTER TABLE `students`
 --
 ALTER TABLE `student_learning_history`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
---
--- AUTO_INCREMENT for table `student_tests`
---
-ALTER TABLE `student_tests`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -981,13 +930,6 @@ ALTER TABLE `materials`
 ALTER TABLE `student_learning_history`
   ADD CONSTRAINT `student_learning_history_lesson_resource_id_foreign` FOREIGN KEY (`lesson_resource_id`) REFERENCES `lesson_resources` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `student_learning_history_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `student_tests`
---
-ALTER TABLE `student_tests`
-  ADD CONSTRAINT `student_tests_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `student_tests_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -7,9 +7,11 @@ use App\Models\Course;
 use App\Models\Feedback;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Grade;
+use Livewire\WithFileUploads;
 
 class Show extends Component
 {
+    use WithFileUploads;
     public $course;
     public $feedbacks;
     public $lessons;
@@ -30,6 +32,11 @@ class Show extends Component
     public $showGradesModal = false;
     public $showGradeViewer = false;
     public $selectedGrade = null;
+
+    public $showTestModal = false;
+    public $testFile;
+    public $testImage;
+    public $submittedTests;
 
     public function setRating($value)
     {
@@ -120,6 +127,15 @@ class Show extends Component
         if (Auth::guard('student')->check()) {
             $this->attendances = \App\Models\Attendance::where('student_id', Auth::guard('student')->id())
                 ->where('course_id', $this->course->id)
+                ->get();
+        }
+
+        // Load submitted tests for current student if enrolled
+        if (Auth::guard('student')->check()) {
+            $this->submittedTests = \App\Models\StudentTest::where('student_id', Auth::guard('student')->id())
+                ->where('course_id', $this->course->id)
+                ->orderBy('submitted_at', 'desc')
+                ->take(6)
                 ->get();
         }
     }
@@ -229,8 +245,52 @@ class Show extends Component
         ]);
     }
 
+    public function submitTest()
+    {
+        $this->validate([
+            'testFile' => 'required|file|mimes:doc,docx|max:10240', // max 10MB
+            'testImage' => 'nullable|image|max:5120', // max 5MB
+        ]);
+
+        $filePath = $this->testFile->store('tests', 'public');
+        $imagePath = null;
+
+        if ($this->testImage) {
+            $imagePath = $this->testImage->store('tests/images', 'public');
+        }
+
+        \App\Models\StudentTest::create([
+            'course_id' => $this->course->id,
+            'student_id' => Auth::guard('student')->id(),
+            'file_path' => $filePath,
+            'image' => $imagePath,
+            'submitted_at' => now(),
+        ]);
+
+        // Refresh danh sách bài đã nộp
+        $this->submittedTests = \App\Models\StudentTest::where('student_id', Auth::guard('student')->id())
+            ->where('course_id', $this->course->id)
+            ->orderBy('submitted_at', 'desc')
+            ->get();
+
+        // Reset form
+        $this->reset(['testFile', 'testImage']);
+
+        session()->flash('message', 'Nộp bài thành công!');
+    }
+
     public function render()
     {
+        $submittedTests = collect();
+        
+        if (Auth::guard('student')->check()) {
+            $submittedTests = \App\Models\StudentTest::where('student_id', Auth::guard('student')->id())
+                ->where('course_id', $this->course->id)
+                ->orderBy('submitted_at', 'desc')
+                ->take(6)
+                ->get();
+        }
+
         return view('livewire.courses.show', [
             'course' => $this->course,
             'feedbacks' => $this->feedbacks,
@@ -238,6 +298,7 @@ class Show extends Component
             'relatedCourses' => $this->relatedCourses,
             'averageRating' => $this->averageRating,
             'ratingPercentages' => $this->ratingPercentages,
+            'submittedTests' => $submittedTests,
         ]);
     }
 }

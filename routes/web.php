@@ -16,8 +16,10 @@ use App\Livewire\Lessons\Show as LessonShow;
 use App\Livewire\VerifyAccount;
 use App\Livewire\ForgotPassword;
 use App\Livewire\ResetPassword;
+use App\Livewire\Dashboard\TestHistory;
 
-Route::get('/', Home::class)->name('home');
+Route::get('/', AuthForm::class)->name('auth');
+Route::get('/home', Home::class)->name('home');
 Route::get('/auth', AuthForm::class)->name('auth');
 Route::get('/forgot-password', ForgotPassword::class)->name('forgot-password');
 Route::get('/reset-password/{token}', ResetPassword::class)->name('reset-password');
@@ -29,6 +31,7 @@ Route::middleware(['student.auth'])->group(function () {
     Route::get('/dashboard/settings', Settings::class)->name('dashboard.settings');
     Route::get('/dashboard/attendance', Attendance::class)->name('dashboard.attendance');
     Route::get('/dashboard/learning-history', DashboardLearningHistory::class)->name('dashboard.learning-history');
+    Route::get('/dashboard/test-history', TestHistory::class)->name('dashboard.test-history');
 });
 Route::get('/courses', CourseIndex::class)->name('courses.index');
 Route::get('/courses/{slug}', CourseShow::class)->name('courses.show');

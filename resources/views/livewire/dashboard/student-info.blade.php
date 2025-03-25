@@ -1,6 +1,6 @@
 <div>
     <div class="rbt-dashboard-content-wrapper">
-        <div class="tutor-bg-photo bg_image bg_image--23 height-350" style="background-image: url('{{ asset('assets/cover1.png') }}'); background-size: cover; background-position: right; "></div>
+        <div class="tutor-bg-photo bg_image bg_image--23 height-350" style="background-color: #414141;background-image:  none; background-size: cover; background-position: right; "></div>
         <!-- Start Tutor Information  -->
         <div class="rbt-tutor-information">
             <div class="rbt-tutor-information-left">

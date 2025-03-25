@@ -45,6 +45,12 @@
                                         <span>Đánh giá môn học</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('dashboard.test-history') }}" class="{{ request()->routeIs('dashboard.test-history') ? 'active' : '' }}">
+                                        <i class="feather-file-text"></i>
+                                        <span>Lịch sử kiểm tra</span>
+                                    </a>
+                                </li>
                             </ul>
                         </nav>
     
